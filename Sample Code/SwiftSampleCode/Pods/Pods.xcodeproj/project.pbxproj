@@ -12,15 +12,24 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0486C5037C0FE6DC487637E3D264DD55 /* SKAudio.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SKAudio.h; path = SpeechKit.framework/Headers/SKAudio.h; sourceTree = "<group>"; };
+		056544DAFA203D2AC23296926EACC73E /* SKRecognition.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SKRecognition.h; path = SpeechKit.framework/Headers/SKRecognition.h; sourceTree = "<group>"; };
 		1213F201DB6C235587F0CB83E9CCFE65 /* Pods-DroneItOut-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-DroneItOut-acknowledgements.plist"; sourceTree = "<group>"; };
 		26AD28D8407B695AA7F9AEEF6AF8263F /* Pods-DroneItOut-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-DroneItOut-frameworks.sh"; sourceTree = "<group>"; };
+		38A412F16FA07DD85C26AABF93B8647A /* SKInterpretation.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SKInterpretation.h; path = SpeechKit.framework/Headers/SKInterpretation.h; sourceTree = "<group>"; };
 		4B062C90796589B39D02396994DD8B6D /* libPods-DroneItOut.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "libPods-DroneItOut.a"; path = "libPods-DroneItOut.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5D0E75D43D6A649791E06B567D9C9179 /* Pods-DroneItOut.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-DroneItOut.debug.xcconfig"; sourceTree = "<group>"; };
-		60D35208A41F813C11CF2EABF1729F56 /* DJISDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DJISDK.framework; path = iOS_Mobile_SDK/DJISDK.framework; sourceTree = "<group>"; };
+		5EFAB85A36E979F64B93CFFF8656D98B /* SKOptions.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SKOptions.h; path = SpeechKit.framework/Headers/SKOptions.h; sourceTree = "<group>"; };
+		6550DA535DE0EBED39EB7260B0C8E975 /* SpeechKit.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SpeechKit.h; path = SpeechKit.framework/Headers/SpeechKit.h; sourceTree = "<group>"; };
 		6604A7D69453B4569E4E4827FB9155A9 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		6C513E68283A0E99BA526C626C29DBBE /* DJISDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DJISDK.framework; path = iOS_Mobile_SDK/DJISDK.framework; sourceTree = "<group>"; };
 		6EF742332A635BA7B816D14962C70413 /* Pods-DroneItOut.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-DroneItOut.release.xcconfig"; sourceTree = "<group>"; };
 		806A7D43320008575133C7815595A26C /* Pods-DroneItOut-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-DroneItOut-dummy.m"; sourceTree = "<group>"; };
+		847CFC6DA0BB74B647BBAB90B74E678E /* SKSession.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SKSession.h; path = SpeechKit.framework/Headers/SKSession.h; sourceTree = "<group>"; };
 		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		A2AF82FAFF8714ADE5203072CF0A042E /* SKTransaction.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SKTransaction.h; path = SpeechKit.framework/Headers/SKTransaction.h; sourceTree = "<group>"; };
+		A751C293801FC3F0B50E9363E0E8BDA2 /* SKAudioPlayer.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SKAudioPlayer.h; path = SpeechKit.framework/Headers/SKAudioPlayer.h; sourceTree = "<group>"; };
+		B5E57E88CB60554185A202336EC9F582 /* SpeechKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SpeechKit.framework; sourceTree = "<group>"; };
 		CB43814770B38C6734E08ACAC7937062 /* Pods-DroneItOut-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-DroneItOut-acknowledgements.markdown"; sourceTree = "<group>"; };
 		CBBE1ECB968C016405353BA5958C1965 /* Pods-DroneItOut-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-DroneItOut-resources.sh"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -37,6 +46,32 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		07081A9E238D3B46A046F8C9CAF44541 /* SpeechKit */ = {
+			isa = PBXGroup;
+			children = (
+				0486C5037C0FE6DC487637E3D264DD55 /* SKAudio.h */,
+				A751C293801FC3F0B50E9363E0E8BDA2 /* SKAudioPlayer.h */,
+				38A412F16FA07DD85C26AABF93B8647A /* SKInterpretation.h */,
+				5EFAB85A36E979F64B93CFFF8656D98B /* SKOptions.h */,
+				056544DAFA203D2AC23296926EACC73E /* SKRecognition.h */,
+				847CFC6DA0BB74B647BBAB90B74E678E /* SKSession.h */,
+				A2AF82FAFF8714ADE5203072CF0A042E /* SKTransaction.h */,
+				6550DA535DE0EBED39EB7260B0C8E975 /* SpeechKit.h */,
+				DE3A17A85DD0E2AD56E8CFC84A5B367A /* Frameworks */,
+			);
+			name = SpeechKit;
+			path = SpeechKit;
+			sourceTree = "<group>";
+		};
+		0BDD587FA2993E808C473DA819126061 /* DJI-SDK-iOS */ = {
+			isa = PBXGroup;
+			children = (
+				C00A6272917E6756B138455E6427CE0F /* Frameworks */,
+			);
+			name = "DJI-SDK-iOS";
+			path = "DJI-SDK-iOS";
+			sourceTree = "<group>";
+		};
 		536D6F8E8234DAFE68DD542A24E9629F /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -60,20 +95,13 @@
 			path = "Target Support Files/Pods-DroneItOut";
 			sourceTree = "<group>";
 		};
-		56F41CF807F2E3D702FCC66A3C9E3ED3 /* Pods */ = {
+		60950D7B30A926BD63294DCD64995465 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				B807EC8B5210DCC405066E964D6E24F1 /* DJI-SDK-iOS */,
+				0BDD587FA2993E808C473DA819126061 /* DJI-SDK-iOS */,
+				07081A9E238D3B46A046F8C9CAF44541 /* SpeechKit */,
 			);
 			name = Pods;
-			sourceTree = "<group>";
-		};
-		67CB930674CE5A381B0C1916D23A3035 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				60D35208A41F813C11CF2EABF1729F56 /* DJISDK.framework */,
-			);
-			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		7DB346D0F39D3F0E887471402A8071AB = {
@@ -81,7 +109,7 @@
 			children = (
 				93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */,
 				BC3CA7F9E30CC8F7E2DD044DD34432FC /* Frameworks */,
-				56F41CF807F2E3D702FCC66A3C9E3ED3 /* Pods */,
+				60950D7B30A926BD63294DCD64995465 /* Pods */,
 				536D6F8E8234DAFE68DD542A24E9629F /* Products */,
 				825FE86A3F1CE69755AB61617FD9D72D /* Targets Support Files */,
 			);
@@ -95,19 +123,18 @@
 			name = "Targets Support Files";
 			sourceTree = "<group>";
 		};
-		B807EC8B5210DCC405066E964D6E24F1 /* DJI-SDK-iOS */ = {
-			isa = PBXGroup;
-			children = (
-				67CB930674CE5A381B0C1916D23A3035 /* Frameworks */,
-			);
-			name = "DJI-SDK-iOS";
-			path = "DJI-SDK-iOS";
-			sourceTree = "<group>";
-		};
 		BC3CA7F9E30CC8F7E2DD044DD34432FC /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
 				D35AF013A5F0BAD4F32504907A52519E /* iOS */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		C00A6272917E6756B138455E6427CE0F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				6C513E68283A0E99BA526C626C29DBBE /* DJISDK.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -118,6 +145,14 @@
 				6604A7D69453B4569E4E4827FB9155A9 /* Foundation.framework */,
 			);
 			name = iOS;
+			sourceTree = "<group>";
+		};
+		DE3A17A85DD0E2AD56E8CFC84A5B367A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				B5E57E88CB60554185A202336EC9F582 /* SpeechKit.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

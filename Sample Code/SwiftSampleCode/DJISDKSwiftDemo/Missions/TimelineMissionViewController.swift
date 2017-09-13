@@ -291,7 +291,7 @@ class TimelineMissionViewController: UIViewController, UICollectionViewDelegate,
             let error = DJISDKManager.missionControl()?.scheduleElement(element)
             
             if error != nil {
-                NSLog("Error scheduling element \(error)")
+                NSLog("Error scheduling element \(String(describing: error))")
                 return;
             }
             
@@ -467,7 +467,7 @@ class TimelineMissionViewController: UIViewController, UICollectionViewDelegate,
     // MARK: - Convenience
     
     func degreesToRadians(_ degrees: Double) -> Double {
-        return M_PI / 180 * degrees
+        return Double.pi / 180 * degrees
     }
 
 }
