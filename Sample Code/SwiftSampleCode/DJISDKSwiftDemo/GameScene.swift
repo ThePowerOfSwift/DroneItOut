@@ -26,7 +26,7 @@ class GameScene: SKScene, SKTransactionDelegate {
         self.backgroundColor = backgroundColorCustom
         
         myLabel = SKLabelNode(fontNamed: "Arial")
-        myLabel.text = "tap and command"
+        myLabel.text = "power off"
         myLabel.fontSize = 20
         myLabel.position = CGPoint(x: self.size.width / 2, y: 50)
         myLabel.fontColor = UIColor.black
@@ -62,14 +62,14 @@ class GameScene: SKScene, SKTransactionDelegate {
     
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) { //neeed to have developer sandbox credentials to
-        let SKSAppKey = "58a9d765dc6825c013e1bbbee16c7d7564e6263b3a285e7dd8a9b840282bcf80d5a6e5b10e0a7222ec2de0cd9a5d42fe4468397e9098fc6841b4a86adf77eab4";         //start a session
-        let SKSAppId = "NMDPPRODUCTION_daniel_nguyen_DroneItOut_20170912190938";
-        let SKSServerHost = "lij.nmdp.nuancemobility.net 443";
+        let SKSAppKey = "e44c885455471dd09b1cef28fae758e80348e989db7b28e4b794a9608cfbfb714783c59dcae26d66fe5c8ef843e7e0462fc9cf0a44f7eefc8b985c18935789da";         //start a session
+        let SKSAppId = "NMDPTRIAL_danieltn91_gmail_com20170911202728";
+        let SKSServerHost = "sslsandbox-nmdp.nuancemobility.net";
         let SKSServerPort = "443";
         
         let SKSLanguage = "eng-USA";
         
-        let SKSServerUrl = "nmsps://NMDPTRIAL_danieltn91_gmail_com20170911202728@sslsandbox-nmdp.nuancemobility.net:433"
+        let SKSServerUrl = "nmsps://\(SKSAppId)@\(SKSServerHost):\(SKSServerPort)"
         
         
         
@@ -77,10 +77,10 @@ class GameScene: SKScene, SKTransactionDelegate {
         
 
         skTransaction = session?.recognize(withType: SKTransactionSpeechTypeDictation, detection: .short, language: SKSLanguage, delegate: self)
-    
+  
     }
     
-    
+ 
     private func transaction(transaction: SKTransaction!, didReceiveRecognition recognition: SKRecognition!) {
         
         myLabel.text = recognition.text.lowercased()
@@ -97,19 +97,23 @@ class GameScene: SKScene, SKTransactionDelegate {
         
         //set up animation actions that can be run using a key to activate/deactivate them
         let land: SKAction = SKAction.move(to: CGPoint(x: self.size.width / 2, y: 150 ), duration: 2.0 )
-        let propellers: SKAction = SKAction.repeatForever(SKAction.animate(with: TextureArray, timePerFrame: 0.05))
+        let propellers: SKAction = SKAction.repeatForever(SKAction.animate(withNormalTextures: TextureArray, timePerFrame: 0.05))
+
         let wobble: SKAction = SKAction.sequence(flightWobble)
         
         //start the propellers
         if strArr[0] == "power"{
             if strArr[1] == "on" {
-                //                Drone.paused = false
+                Drone.isPaused = false
                 Drone.run(propellers, withKey: "action1")
+                print("power on")
+                
             }
             if strArr[1] == "off" {
-                //                Drone.paused = true
+                Drone.isPaused = true
                 Drone.removeAction(forKey: "action1")
                 Drone.texture = SKTexture(imageNamed: "2drone.png")
+                print("power off")
             }
         }
         
@@ -156,8 +160,9 @@ class GameScene: SKScene, SKTransactionDelegate {
         }
         
         if goCalled {
-            let upSequence = SKAction.moveBy(x: 0, y: distance * 10, duration: 1.2 )
-            let downSequence = SKAction.moveBy(x: 0, y: -(distance * 10), duration: 1.2)
+            
+            let upSequence: SKAction = SKAction.moveBy(x: 0, y: distance * 10, duration: 1.2 )
+            let downSequence: SKAction = SKAction.moveBy(x: 0, y: -(distance * 10), duration: 1.2)
             
             if direction == "up" {
                 Drone.run(upSequence)

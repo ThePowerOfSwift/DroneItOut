@@ -10,8 +10,9 @@
 		8E73C8B286CC8B9924B7CE91 /* libPods-DroneItOut.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C4F88E5F794C7BE0EB5B374C /* libPods-DroneItOut.a */; };
 		971F993A1F67488A00FFA39A /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 971F99391F67488A00FFA39A /* GameViewController.swift */; };
 		971F993C1F67489700FFA39A /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 971F993B1F67489700FFA39A /* GameScene.swift */; };
-		971F993E1F6748B700FFA39A /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 971F993D1F6748B700FFA39A /* GameScene.sks */; };
 		971F99411F674B0A00FFA39A /* droneflight.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 971F99401F674B0A00FFA39A /* droneflight.atlas */; };
+		975613621F6B0CDB00B45F33 /* SpeechKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 975613611F6B0CDB00B45F33 /* SpeechKit.framework */; };
+		9756136E1F6CBDED00B45F33 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 9756136D1F6CBDED00B45F33 /* GameScene.sks */; };
 		9789872B1F689D76004D8A63 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9789872A1F689D76004D8A63 /* Assets.xcassets */; };
 		A435F2011E8BD62B00D58045 /* BluetoothConnectorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A435F1FE1E8BD62B00D58045 /* BluetoothConnectorViewController.swift */; };
 		A435F2021E8BD62B00D58045 /* StartupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A435F1FF1E8BD62B00D58045 /* StartupViewController.swift */; };
@@ -44,10 +45,10 @@
 		86985CC91E834EC200577EC7 /* DroneItOut.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DroneItOut.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		971F99391F67488A00FFA39A /* GameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GameViewController.swift; path = DJISDKSwiftDemo/GameViewController.swift; sourceTree = SOURCE_ROOT; };
 		971F993B1F67489700FFA39A /* GameScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GameScene.swift; path = DJISDKSwiftDemo/GameScene.swift; sourceTree = SOURCE_ROOT; };
-		971F993D1F6748B700FFA39A /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = GameScene.sks; path = DJISDKSwiftDemo/GameScene.sks; sourceTree = SOURCE_ROOT; };
 		971F99401F674B0A00FFA39A /* droneflight.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; name = droneflight.atlas; path = DJISDKSwiftDemo/droneflight.atlas; sourceTree = SOURCE_ROOT; };
-		974A20BB1F689AB400AB5954 /* Speech.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Speech.framework; path = System/Library/Frameworks/Speech.framework; sourceTree = SDKROOT; };
 		974A20BD1F689ABE00AB5954 /* SpriteKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SpriteKit.framework; path = System/Library/Frameworks/SpriteKit.framework; sourceTree = SDKROOT; };
+		975613611F6B0CDB00B45F33 /* SpeechKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SpeechKit.framework; path = Pods/SpeechKit/SpeechKit.framework; sourceTree = "<group>"; };
+		9756136D1F6CBDED00B45F33 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = GameScene.sks; path = DJISDKSwiftDemo/GameScene.sks; sourceTree = SOURCE_ROOT; };
 		9789872A1F689D76004D8A63 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = DJISDKSwiftDemo/Assets.xcassets; sourceTree = SOURCE_ROOT; };
 		A435F1F41E8BD60900D58045 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = DJISDKSwiftDemo/Base.lproj/LaunchScreen.storyboard; sourceTree = SOURCE_ROOT; };
 		A435F1F61E8BD60900D58045 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = DJISDKSwiftDemo/Base.lproj/Main.storyboard; sourceTree = SOURCE_ROOT; };
@@ -72,6 +73,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8E73C8B286CC8B9924B7CE91 /* libPods-DroneItOut.a in Frameworks */,
+				975613621F6B0CDB00B45F33 /* SpeechKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -81,8 +83,8 @@
 		0B6F263FBC093B7B6FB6EF51 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				975613611F6B0CDB00B45F33 /* SpeechKit.framework */,
 				974A20BD1F689ABE00AB5954 /* SpriteKit.framework */,
-				974A20BB1F689AB400AB5954 /* Speech.framework */,
 				BA6806BA82A93F6159B12D3F /* libPods-DJISDKSwiftDemo.a */,
 				C4F88E5F794C7BE0EB5B374C /* libPods-DroneItOut.a */,
 			);
@@ -119,20 +121,18 @@
 			isa = PBXGroup;
 			children = (
 				971F99401F674B0A00FFA39A /* droneflight.atlas */,
-				A435F1FD1E8BD62B00D58045 /* AppDelegate.swift */,
 				A435F1FE1E8BD62B00D58045 /* BluetoothConnectorViewController.swift */,
 				A435F1FF1E8BD62B00D58045 /* StartupViewController.swift */,
-				A435F1FA1E8BD61B00D58045 /* Info.plist */,
-				A435F1F31E8BD60900D58045 /* LaunchScreen.storyboard */,
-				A435F1F51E8BD60900D58045 /* Main.storyboard */,
+				9756136D1F6CBDED00B45F33 /* GameScene.sks */,
 				971F993B1F67489700FFA39A /* GameScene.swift */,
 				971F99391F67488A00FFA39A /* GameViewController.swift */,
-				971F993D1F6748B700FFA39A /* GameScene.sks */,
 				9789872A1F689D76004D8A63 /* Assets.xcassets */,
+				975613631F6B0F1700B45F33 /* Main Base */,
 				86985D8F1E834F6100577EC7 /* KeyedInterfaces */,
 				86985D901E834F6100577EC7 /* Missions */,
 				866CCED81E8710C1004E210E /* UIObjects */,
 				86985DB31E835F1900577EC7 /* Services */,
+				975613641F6B0F5600B45F33 /* Supporting Files */,
 			);
 			name = DJISDKSwiftDemo;
 			path = "SDK Swift Sample";
@@ -169,6 +169,24 @@
 				A435F2061E8BD64300D58045 /* TimelineMissionViewController.swift */,
 			);
 			name = Timeline;
+			sourceTree = "<group>";
+		};
+		975613631F6B0F1700B45F33 /* Main Base */ = {
+			isa = PBXGroup;
+			children = (
+				A435F1F51E8BD60900D58045 /* Main.storyboard */,
+			);
+			name = "Main Base";
+			sourceTree = "<group>";
+		};
+		975613641F6B0F5600B45F33 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				A435F1FD1E8BD62B00D58045 /* AppDelegate.swift */,
+				A435F1FA1E8BD61B00D58045 /* Info.plist */,
+				A435F1F31E8BD60900D58045 /* LaunchScreen.storyboard */,
+			);
+			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
 		C0C7419B2667BCEE0BB6C689 /* Pods */ = {
@@ -246,8 +264,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				971F993E1F6748B700FFA39A /* GameScene.sks in Resources */,
 				A435F21C1E8BD8E300D58045 /* LaunchScreen.storyboard in Resources */,
+				9756136E1F6CBDED00B45F33 /* GameScene.sks in Resources */,
 				A435F21D1E8BD8E300D58045 /* Main.storyboard in Resources */,
 				971F99411F674B0A00FFA39A /* droneflight.atlas in Resources */,
 				9789872B1F689D76004D8A63 /* Assets.xcassets in Resources */,
@@ -458,6 +476,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/../VideoPreviewer",
+					"$(PROJECT_DIR)/Pods/SpeechKit",
 				);
 				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = "$(SRCROOT)/DJISDKSwiftDemo/Info.plist";
@@ -481,6 +500,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/../VideoPreviewer",
+					"$(PROJECT_DIR)/Pods/SpeechKit",
 				);
 				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = "$(SRCROOT)/DJISDKSwiftDemo/Info.plist";

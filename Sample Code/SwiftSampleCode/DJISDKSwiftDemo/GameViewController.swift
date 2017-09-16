@@ -5,7 +5,9 @@ import SpeechKit
 
 
 class GameViewController: UIViewController, SKTransactionDelegate {
-   
+    
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -27,10 +29,10 @@ class GameViewController: UIViewController, SKTransactionDelegate {
         }
     }
     
-    func shouldAutorotate(_ textField: UITextField) -> Bool {
+    override var shouldAutorotate: Bool {
         return true
     }
-
+    
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
         if UIDevice.current.userInterfaceIdiom == .phone {
             return .allButUpsideDown
@@ -44,7 +46,7 @@ class GameViewController: UIViewController, SKTransactionDelegate {
         // Release any cached data, images, etc that aren't in use.
     }
     
-    func prefersStatusBarHidden(_ textField: UITextField) -> Bool {
+    override var prefersStatusBarHidden: Bool {
         return true
     }
 }
