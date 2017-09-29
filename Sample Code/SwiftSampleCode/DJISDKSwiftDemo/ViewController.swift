@@ -6,7 +6,6 @@
 //  Copyright © 2017 DJI. All rights reserved.
 //
 
-import Foundation
 import UIKit
 import SpeechKit
 import DJISDK
@@ -14,7 +13,7 @@ import SpriteKit
 import CoreLocation
 import CoreBluetooth
 
-/*
+
 
 let POINT_OFFSET: Double = 0.000179863
 //1 = 10m
@@ -25,7 +24,11 @@ let POINT_OFFSET: Double = 0.000179863
 let MY_POINT_OFFSET: Double = 0.0000181
 let ALTITUDE: Float = 2
 
-class ViewController: DJIVisionControlState, DJIBaseViewController, DJISDKManagerDelegate, SKTransactionDelegate, DJIFlightControllerDelegate,DJIMissionManagerDelegate, DJIMissionControl {
+class ViewController: DJIBaseViewController, DJISDKManagerDelegate, SKTransactionDelegate, DJIFlightControllerDelegate {
+    func appRegisteredWithError(_ error: Error?) {
+        print("app registered with error")
+    }
+    
     
     enum SKSState {
         case sksIdle
@@ -49,16 +52,16 @@ class ViewController: DJIVisionControlState, DJIBaseViewController, DJISDKManage
     
     //DJI variable
     var appkey = "0e40d70b9706d8bb3ae4adfd"
-    var connectionProduct: DJIBaseProduct?=nil
+    var connectionProduct: DJIBaseProduct? = nil
     
     //flight Controller
     var fc: DJIFlightController?
-    var aircraftLocation: CLLocationCoordinate2D?=nil
-    var currentState: DJIFlightControllerState?=nil
-    var aircraft: DJIAircraft?=nil
+    var aircraftLocation: CLLocationCoordinate2D? = nil
+    var currentState: DJIFlightControllerState? = nil
+    var aircraft: DJIAircraft? = nil
     
     //mission variable
-    var missionManager: DJIMissionManger = DJIMissionManger.shareInstance()!
+   // var missionManager: DJIMissionManger = DJIMissionManger.shareInstance()
     var hotpointMission: DJIHotpointMission = DJIHotpointMission()
     var mCurrentHotPointCoordinate: CLLocationCoordinate2D = kCLLocationCoordinate2DInvalid
     var locs: [CLLocationCoordinate2D] = []
@@ -69,27 +72,26 @@ class ViewController: DJIVisionControlState, DJIBaseViewController, DJISDKManage
     //store coordinate that uses to create waypoint mission
     var waypointList: [DJIWaypoint] = []
     var waypointMission: DJIWaypointMission = DJIWaypointMission()
-    var waypointMission: DJICustomMission?=nil
+    
+    var customMission: DJICustomMission? = nil
     var missionSetup: Bool = false
     var deltaProcess: CGFloat = 0
     var allSteps: [DJIMissionStep] = []
     var stepIndex: Int = 0
     
     //mission status UI bar
-    @IBOutlet weak bar missionStatusBar: UIProcessView!
+    @IBOutlet weak var missionStatusBar: UIProcessView!
     
     //label name for debugging
-    @IBOutlet weak bar atext: UILabel!
-    @IBOutlet weak bar btext: UILabel!
-    @IBOutlet weak bar ctext: UILabel!
-    @IBOutlet weak bar dtext: UILabel!
-    @IBOutlet weak bar etext: UILabel!
-    @IBOutlet weak bar htext: UILabel!
-    @IBOutlet weak bar itext: UILabel!
-    
-    //Bluetooth
-    var simpleBluetoothID: SimpleBluetoothID!
-    
+    @IBOutlet weak var atext: UILabel!
+    @IBOutlet weak var btext: UILabel!
+    @IBOutlet weak var ctext: UILabel!
+    @IBOutlet weak var dtext: UILabel!
+    @IBOutlet weak var etext: UILabel!
+    @IBOutlet weak var ftext: UILabel!
+    //@IBOutlet weak var htext: UILabel!
+    @IBOutlet weak var itext: UILabel!
+
     
     
     override func viewDidLoad() {
@@ -110,17 +112,18 @@ class ViewController: DJIVisionControlState, DJIBaseViewController, DJISDKManage
         sksSession = SKSession(url: URL(string: SKSServerUrl), appToken: SKSAppKey)
         sksTransaction = nil
         
-        //Registered DJI app key
-        DJISDKManager.registerApp(appkey, with: self)
-        print(DJISDKManager.getSDKVersion)
+        //Registered the app with DJI's servers
+        DJISDKManager.registerApp(with: "0e40d70b9706d8bb3ae4adfd" as! DJISDKManagerDelegate)
+        
+        print("========= VIEWCONTROLLER VIEWDIDLOAD ==========")
         
         //Connect to product
         DJISDKManager.startConnectionToProduct()
-        connectionProductManager.shareInstance.fetchAirlink()
+        ConnectedProductManager.sharedInstance.fetchAirlink()
         
         //mission manner
-        self.missionManager = DJIMissionManager.shareInstance()!
-        self.missionManager.delegate = self
+        //self.missionManager = missionManager.shareInstance()!
+       // self.missionManager!.delegate = self
         
         let aircraft: DJIAircraft? = self.fetchAircraft()
         if aircraft != nil {
@@ -136,14 +139,17 @@ class ViewController: DJIVisionControlState, DJIBaseViewController, DJISDKManage
     }
     //conform DJIApp Protocol delegate and check error
     @objc func sdkManagerDidRegisterAppWithError(_ error: Error?){
-        print(error)
+        guard error == nil  else {
+            print("Error:\(error!.localizedDescription)")
+            return
+        }
     }
     
     //auto make transactons
     func beginApp() {
         switch state {
         case .sksIdle:
-            recongnize()
+            reconize()
         case .sksListening:
             stopRecording()
         case .sksProcessing:
@@ -202,7 +208,7 @@ class ViewController: DJIVisionControlState, DJIBaseViewController, DJISDKManage
     }
     
     // *************This is where the action happens after speech has been reconized!*********** //
-    func transaction(_ transaction: SKTransaction!, didReceiveRecognition recognition: SKRecognition!) {
+    func transaction(_ transaction: SKTransaction!, didReceive recognition: SKRecognition!) {
         
         state = .sksIdle
         
@@ -228,15 +234,15 @@ class ViewController: DJIVisionControlState, DJIBaseViewController, DJISDKManage
         }
         
         // use regex for NSEW compass direction
-        self.commands = findNSEWComandsFromString(str: words)
+        self.commands = findNSEWCommandFromString(str: words)
         if !commands.isEmpty {
-            runNSEWDirectionCommand()
+            runNSEWDirectionCommands()
             commands = []
             btext.text = "first"
         }
         
         // use regex for longer commands
-        commands = findMovementCommandsString(str: words)
+        commands = findMovementCommandsFromString(str: words)
         if !commands.isEmpty {
             itext.text = "\(commands)"
             commands = []
@@ -244,7 +250,7 @@ class ViewController: DJIVisionControlState, DJIBaseViewController, DJISDKManage
         }
         
         // use regex for short commands
-        commands = findShortMovementCommandsString(str: words)
+        commands = findShortMovementCommandsFromString(str: words)
         itext.text = "\(commands)"
         if !commands.isEmpty {
             itext.text = "\(commands)"
@@ -258,15 +264,15 @@ class ViewController: DJIVisionControlState, DJIBaseViewController, DJISDKManage
         
         if strArr.count > 1 {
             //take off
-            if strArr[0] = "take" && strArr[1] == "off" {
+            if strArr[0] == "take" && strArr[1] == "off" {
                 droneTakeOff(fc)
             }
             //say "power on" to start propellers
-            if strArr[0] = "power" && strArr[1] == "on" {
+            if strArr[0] == "power" && strArr[1] == "on" {
                 droneStartPropellers(fc)
             }
             //say "power off" to off propellers
-            if strArr[0] = "power" && strArr[1] == "off" {
+            if strArr[0] == "power" && strArr[1] == "off" {
                 droneStopPropellers(fc)
             }
         }
@@ -277,7 +283,7 @@ class ViewController: DJIVisionControlState, DJIBaseViewController, DJISDKManage
             if str == "connect" {
                 if ConnectedProductManager.sharedInstance.connectedProduct != nil {
                     connectionStatus.text = "Connected"
-                    connectionStatus.backgroundColor = UIColor.lightgray
+                    connectionStatus.backgroundColor = UIColor.gray
                 }
                 else {
                     connectionStatus.text = "Disconnected"
@@ -291,10 +297,10 @@ class ViewController: DJIVisionControlState, DJIBaseViewController, DJISDKManage
                 droneLand(fc)
             }
             if str == "enable" {
-                enableVirturalStickModeSaid()
+                enableVirtualStickModeSaid()
             }
             if str == "disable" {
-                disableVirtualStickModeSaid()
+                enableVirtualStickModeSaid()
             }
             if str == "execute" {
                 executeMission()
@@ -342,18 +348,15 @@ class ViewController: DJIVisionControlState, DJIBaseViewController, DJISDKManage
     }
     // matching function
     //use regex to extract matches from string and retrun array of strings
-    func matches(for regex: String, in text: String) -> String {
+    func matches(for regex: String!, in text: String!) -> [String] {
         do {
             let regex = try NSRegularExpression(pattern: regex)
-            let nsString = text as String
+            let nsString = text as NSString
             let results = regex.matches(in: text, range: NSRange(location: 0, length: nsString.length))
-            return results.map{ nsString.substring(with: $0.range)
-            }
-            catch let error {
-                print ("invalid regex: \(error.localizedDescription)")
-                return []
-            }
-            
+            return results.map { nsString.substring(with: $0.range)}
+        } catch let error {
+            print("invalid regex: \(error.localizedDescription)")
+            return []
         }
     }
     //******** RUN COMMANDS METHODS **********//
@@ -361,7 +364,7 @@ class ViewController: DJIVisionControlState, DJIBaseViewController, DJISDKManage
         var direction: String = ""
         if commands.count > 0 {
             for comm in commands {
-                var commandArr = comm.characters.split{$0 == "" }.map(String.init)
+                var commandArr = comm.characters.split(separator: " ").map(String.init)
                 ctext.text = "command = \(commandArr[0])"
                 dtext.text = "direction = \(commandArr[1])"
                 
@@ -410,6 +413,7 @@ class ViewController: DJIVisionControlState, DJIBaseViewController, DJISDKManage
         
         //cancel the missions just in case they are running
         cancelMissionSaid()
+        
         aircraft = self.fetchAircraft()
         fc = self.fetchFlightController()
         fc?.delegate = self
@@ -465,7 +469,7 @@ class ViewController: DJIVisionControlState, DJIBaseViewController, DJISDKManage
             for comm in commands {
                 var dist: String
                 var direction: String
-                var unit: String
+                var units: String
                 
                 var commandArr = comm.characters.split{$0 == " "}.map(String.init)
                 
@@ -480,16 +484,16 @@ class ViewController: DJIVisionControlState, DJIBaseViewController, DJISDKManage
                     units = commandArr[4]
                 }
                 else if commandArr[2] == "for" {
-                    if commandArr[3] == "to" { commandArr[3] == "2"}
-                    if commandArr[3] == "too" { commandArr[3] == "2"}
+                    if commandArr[3] == "to" { commandArr[3] = "2"}
+                    if commandArr[3] == "too" { commandArr[3] = "2"}
                     etext.text = "distance: \(commandArr[3])"
                     dist = commandArr[3]
                     ftext.text = "units: \(commandArr[4])"
                     units = commandArr[4]
                     
                 } else {
-                    if commandArr[3] == "to" { commandArr[3] == "2"}
-                    if commandArr[3] == "too" { commandArr[3] == "2"}
+                    if commandArr[3] == "to" { commandArr[3] = "2"}
+                    if commandArr[3] == "too" { commandArr[3] = "2"}
                     etext.text = "distance: \(commandArr[3])"
                     dist = commandArr[3]
                     ftext.text = "units: \(commandArr[4])"
@@ -505,8 +509,9 @@ class ViewController: DJIVisionControlState, DJIBaseViewController, DJISDKManage
                 
                 //get drone's direction
                 var droneLocation: CLLocationCoordinate2D = CLLocationCoordinate2DMake(0, 0)
-                if self.currentState != nil && CLLocationCoordinate2DIsValid(self.currentState?.aircraftLocation){
+                if self.currentState != nil && CLLocationCoordinate2DIsValid((self.currentState?.aircraftLocation)!){
                     droneLocation = self.currentState!.aircraftLocation
+                    //finding GPS location
                     let waypoint: DJIWaypoint = DJIWaypoint(coordinate: droneLocation)
                     waypoint.altitude = ALTITUDE
                     self.waypointMission.add(waypoint)
@@ -517,6 +522,7 @@ class ViewController: DJIVisionControlState, DJIBaseViewController, DJISDKManage
                 var commLoc: CLLocationCoordinate2D = CLLocationCoordinate2DMake(0, 0)
                 
                 //if units are in meters
+                //convert all unit to GPS coordinate points
                 if units == "m" || units == "meter" || units == "meters" {
                     if direction == "east" {
                         long = long + convertMetersToPoint(m: distance)
@@ -581,21 +587,64 @@ class ViewController: DJIVisionControlState, DJIBaseViewController, DJISDKManage
     }
     
     //********** missing some functions *****************//
+    func cancelMissionSaid() {
+        print("Mission Cancelled !")
+    }
+    func pauseMissionSaid(){
+        print("Mission paused !")
+    }
+    func resumeMissionSaid(){
+        print("Mission resume !")
+    }
+    func executeMission(){
+        print("Mission executed !")
+    }
+    
+    override func fetchAircraft() -> DJIAircraft?{
+        return ConnectedProductManager.sharedInstance.fetchAircraft()
+    }
+    
+    override func fetchCamera() -> DJICamera? {
+        return ConnectedProductManager.sharedInstance.fetchCamera()
+    }
+    
+    override func fetchGimbal() -> DJIGimbal? {
+        return ConnectedProductManager.sharedInstance.fetchGimbal()
+    }
+    
+    override func fetchFlightController() -> DJIFlightController? {
+        return ConnectedProductManager.sharedInstance.fetchFlightController()
+    }
+    
+    override func fetchRemoteController() -> DJIRemoteController? {
+        return ConnectedProductManager.sharedInstance.fetchRemoteController()
+    }
+    
+    override func fetchBattery() -> DJIBattery? {
+        return ConnectedProductManager.sharedInstance.fetchBattery()
+    }
+    override func fetchAirLink() -> DJIAirLink? {
+        return ConnectedProductManager.sharedInstance.fetchAirLink()
+    }
+    override func fetchHandheldController() -> DJIHandheldController?{
+        return ConnectedProductManager.sharedInstance.fetchHandheldController()
+    }
+    
     
     //************ working drone methods *****************//
     func droneStartPropellers(_ fc: DJIFlightController!) {
         if fc != nil {
             fc!.turnOnMotors(completion: {[weak self](error: Error?) -> Void in
                 if error != nil {
-                    self?.showAlertResult("TurnOn Error: \(error!.localizedDescription)")
+                    self?.showAlertResult(info: "TurnOn Error: \(error!.localizedDescription)")
                 }
                 else {
-                    self?.showAlertResult("Turnon Succeeded.")
+                    self?.showAlertResult(info: "Turnon Succeeded.")
                 }
             })
         }
         else {
-            self.showAlertResult("Component not existed")
+            self.showAlertResult(info: "Component not existed")
         }
     }
     func droneTakeOff(_ fc: DJIFlightController!) {
@@ -610,7 +659,7 @@ class ViewController: DJIVisionControlState, DJIBaseViewController, DJISDKManage
             })
         }
         else {
-            self.showAlertResult("Component not existed")
+            self.showAlertResult(info: "Component not existed")
         }
     }
     func droneLand(_ fc: DJIFlightController!) {
@@ -625,7 +674,7 @@ class ViewController: DJIVisionControlState, DJIBaseViewController, DJISDKManage
             })
         }
         else {
-            self.showAlertResult("Component not existed")
+            self.showAlertResult(info: "Component not existed")
         }
     }
     func droneStopPropellers(_ fc: DJIFlightController!) {
@@ -640,7 +689,7 @@ class ViewController: DJIVisionControlState, DJIBaseViewController, DJISDKManage
             })
         }
         else {
-            self.showAlertResult("Component not existed")
+            self.showAlertResult(info: "Component not existed")
         }
     }
     
@@ -683,12 +732,10 @@ class ViewController: DJIVisionControlState, DJIBaseViewController, DJISDKManage
         self.openComponents.alpha = 0.8;
         NSLog("Product Disconnected")
     }
-    
-    
+   
     
 }
 
-*/
 
 
 
