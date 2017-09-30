@@ -167,7 +167,7 @@ class DJIBaseViewController: UIViewController, DJIBaseProductDelegate, DJIProduc
     
     func product(product: DJIBaseProduct, connectivityChanged isConnected: Bool) {
         if isConnected {
-            NSLog("\(product.model) connected. ")
+            NSLog("\(String(describing: product.model)) connected. ")
             ConnectedProductManager.sharedInstance.connectedProduct = product
             ConnectedProductManager.sharedInstance.setDelegate(delegate: self)
             

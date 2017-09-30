@@ -15,16 +15,24 @@
 		971F99411F674B0A00FFA39A /* droneflight.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 971F99401F674B0A00FFA39A /* droneflight.atlas */; };
 		972BB3281F7E09E4007AAF84 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97140E161F6DA01300A5A53B /* ViewController.swift */; };
 		972BB3291F7E0A00007AAF84 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A435F1FA1E8BD61B00D58045 /* Info.plist */; };
+		972BB32C1F7EA6D9007AAF84 /* TimelineElementCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A435F2051E8BD64300D58045 /* TimelineElementCollectionViewCell.swift */; };
+		972BB32D1F7EA6DE007AAF84 /* TimelineMissionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A435F2061E8BD64300D58045 /* TimelineMissionViewController.swift */; };
+		972BB32E1F7EA6E7007AAF84 /* DJIImageAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A435F2091E8BD65500D58045 /* DJIImageAnnotation.swift */; };
+		972BB32F1F7EA6F2007AAF84 /* ProductCommunicationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A435F20B1E8BD66100D58045 /* ProductCommunicationManager.swift */; };
+		972BB3301F7EA6FB007AAF84 /* DroneItOut.app in Resources */ = {isa = PBXBuildFile; fileRef = 86985CC91E834EC200577EC7 /* DroneItOut.app */; };
+		972BB3311F7EA706007AAF84 /* Pods-DJISDKSwiftDemo.debug.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 4B0C6B02B8D1383630F1B67E /* Pods-DJISDKSwiftDemo.debug.xcconfig */; };
+		972BB3321F7EA709007AAF84 /* Pods-DJISDKSwiftDemo.release.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 128ABACC526C7880A0AB3F06 /* Pods-DJISDKSwiftDemo.release.xcconfig */; };
+		972BB3331F7EA70D007AAF84 /* Pods-DroneItOut.debug.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = FBD8BCFEB6EB28305880A66C /* Pods-DroneItOut.debug.xcconfig */; };
+		972BB3341F7EA710007AAF84 /* Pods-DroneItOut.release.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = B15C843FEAD925BE7B336E6F /* Pods-DroneItOut.release.xcconfig */; };
+		972BB3351F7EA71A007AAF84 /* SpriteKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 974A20BD1F689ABE00AB5954 /* SpriteKit.framework */; };
+		972BB3361F7EA71E007AAF84 /* libPods-DJISDKSwiftDemo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BA6806BA82A93F6159B12D3F /* libPods-DJISDKSwiftDemo.a */; };
+		972BB3381F7EA7E2007AAF84 /* DJICollectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 972BB3371F7EA7E2007AAF84 /* DJICollectionController.swift */; };
 		975613621F6B0CDB00B45F33 /* SpeechKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 975613611F6B0CDB00B45F33 /* SpeechKit.framework */; };
 		9756136E1F6CBDED00B45F33 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 9756136D1F6CBDED00B45F33 /* GameScene.sks */; };
 		9789872B1F689D76004D8A63 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9789872A1F689D76004D8A63 /* Assets.xcassets */; };
 		A435F2011E8BD62B00D58045 /* BluetoothConnectorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A435F1FE1E8BD62B00D58045 /* BluetoothConnectorViewController.swift */; };
 		A435F2021E8BD62B00D58045 /* StartupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A435F1FF1E8BD62B00D58045 /* StartupViewController.swift */; };
 		A435F2041E8BD63500D58045 /* KeyedInterfaceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A435F2031E8BD63500D58045 /* KeyedInterfaceViewController.swift */; };
-		A435F2071E8BD64300D58045 /* TimelineElementCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A435F2051E8BD64300D58045 /* TimelineElementCollectionViewCell.swift */; };
-		A435F2081E8BD64300D58045 /* TimelineMissionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A435F2061E8BD64300D58045 /* TimelineMissionViewController.swift */; };
-		A435F20A1E8BD65500D58045 /* DJIImageAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A435F2091E8BD65500D58045 /* DJIImageAnnotation.swift */; };
-		A435F20C1E8BD66100D58045 /* ProductCommunicationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A435F20B1E8BD66100D58045 /* ProductCommunicationManager.swift */; };
 		A435F21C1E8BD8E300D58045 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A435F1F31E8BD60900D58045 /* LaunchScreen.storyboard */; };
 		A435F21D1E8BD8E300D58045 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A435F1F51E8BD60900D58045 /* Main.storyboard */; };
 		A435F2221E8BDBF200D58045 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A435F1FD1E8BD62B00D58045 /* AppDelegate.swift */; };
@@ -53,6 +61,7 @@
 		971F99391F67488A00FFA39A /* GameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GameViewController.swift; path = DJISDKSwiftDemo/GameViewController.swift; sourceTree = SOURCE_ROOT; };
 		971F993B1F67489700FFA39A /* GameScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GameScene.swift; path = DJISDKSwiftDemo/GameScene.swift; sourceTree = SOURCE_ROOT; };
 		971F99401F674B0A00FFA39A /* droneflight.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; name = droneflight.atlas; path = DJISDKSwiftDemo/droneflight.atlas; sourceTree = SOURCE_ROOT; };
+		972BB3371F7EA7E2007AAF84 /* DJICollectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DJICollectionController.swift; sourceTree = "<group>"; };
 		974A20BD1F689ABE00AB5954 /* SpriteKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SpriteKit.framework; path = System/Library/Frameworks/SpriteKit.framework; sourceTree = SDKROOT; };
 		975613611F6B0CDB00B45F33 /* SpeechKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SpeechKit.framework; path = Pods/SpeechKit/SpeechKit.framework; sourceTree = "<group>"; };
 		9756136D1F6CBDED00B45F33 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = GameScene.sks; path = DJISDKSwiftDemo/GameScene.sks; sourceTree = SOURCE_ROOT; };
@@ -80,7 +89,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				8E73C8B286CC8B9924B7CE91 /* libPods-DroneItOut.a in Frameworks */,
+				972BB3361F7EA71E007AAF84 /* libPods-DJISDKSwiftDemo.a in Frameworks */,
 				975613621F6B0CDB00B45F33 /* SpeechKit.framework in Frameworks */,
+				972BB3351F7EA71A007AAF84 /* SpriteKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -134,6 +145,7 @@
 				971F993B1F67489700FFA39A /* GameScene.swift */,
 				971F99391F67488A00FFA39A /* GameViewController.swift */,
 				97140E161F6DA01300A5A53B /* ViewController.swift */,
+				972BB3371F7EA7E2007AAF84 /* DJICollectionController.swift */,
 				97140E181F6DA40000A5A53B /* DJIBaseViewController.swift */,
 				9789872A1F689D76004D8A63 /* Assets.xcassets */,
 				97140E201F70D27C00A5A53B /* background.jpg */,
@@ -277,11 +289,16 @@
 			files = (
 				A435F21C1E8BD8E300D58045 /* LaunchScreen.storyboard in Resources */,
 				9756136E1F6CBDED00B45F33 /* GameScene.sks in Resources */,
+				972BB3301F7EA6FB007AAF84 /* DroneItOut.app in Resources */,
 				A435F21D1E8BD8E300D58045 /* Main.storyboard in Resources */,
+				972BB3341F7EA710007AAF84 /* Pods-DroneItOut.release.xcconfig in Resources */,
 				97140E211F70D27C00A5A53B /* background.jpg in Resources */,
+				972BB3321F7EA709007AAF84 /* Pods-DJISDKSwiftDemo.release.xcconfig in Resources */,
 				971F99411F674B0A00FFA39A /* droneflight.atlas in Resources */,
 				9789872B1F689D76004D8A63 /* Assets.xcassets in Resources */,
+				972BB3331F7EA70D007AAF84 /* Pods-DroneItOut.debug.xcconfig in Resources */,
 				972BB3291F7E0A00007AAF84 /* Info.plist in Resources */,
+				972BB3311F7EA706007AAF84 /* Pods-DJISDKSwiftDemo.debug.xcconfig in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -348,15 +365,16 @@
 			files = (
 				971F993C1F67489700FFA39A /* GameScene.swift in Sources */,
 				A435F2221E8BDBF200D58045 /* AppDelegate.swift in Sources */,
-				A435F20A1E8BD65500D58045 /* DJIImageAnnotation.swift in Sources */,
-				A435F2071E8BD64300D58045 /* TimelineElementCollectionViewCell.swift in Sources */,
-				A435F20C1E8BD66100D58045 /* ProductCommunicationManager.swift in Sources */,
 				971F993A1F67488A00FFA39A /* GameViewController.swift in Sources */,
 				972BB3281F7E09E4007AAF84 /* ViewController.swift in Sources */,
+				972BB3381F7EA7E2007AAF84 /* DJICollectionController.swift in Sources */,
+				972BB32D1F7EA6DE007AAF84 /* TimelineMissionViewController.swift in Sources */,
 				97140E191F6DA40000A5A53B /* DJIBaseViewController.swift in Sources */,
+				972BB32F1F7EA6F2007AAF84 /* ProductCommunicationManager.swift in Sources */,
 				A435F2021E8BD62B00D58045 /* StartupViewController.swift in Sources */,
+				972BB32E1F7EA6E7007AAF84 /* DJIImageAnnotation.swift in Sources */,
 				A435F2041E8BD63500D58045 /* KeyedInterfaceViewController.swift in Sources */,
-				A435F2081E8BD64300D58045 /* TimelineMissionViewController.swift in Sources */,
+				972BB32C1F7EA6D9007AAF84 /* TimelineElementCollectionViewCell.swift in Sources */,
 				A435F2011E8BD62B00D58045 /* BluetoothConnectorViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -5,13 +5,14 @@
 //  Created by Daniel Nguyen on 9/16/17.
 //  Copyright © 2017 DJI. All rights reserved.
 //
-
+import Foundation
 import UIKit
 import SpeechKit
 import DJISDK
 import SpriteKit
 import CoreLocation
 import CoreBluetooth
+
 
 
 
@@ -24,7 +25,8 @@ let POINT_OFFSET: Double = 0.000179863
 let MY_POINT_OFFSET: Double = 0.0000181
 let ALTITUDE: Float = 2
 
-class ViewController: DJIBaseViewController, DJISDKManagerDelegate, SKTransactionDelegate, DJIFlightControllerDelegate {
+
+class ViewController: DJIBaseViewController, DJISDKManagerDelegate, SKTransactionDelegate, DJIFlightControllerDelegate, DJIMissionManagerDelegate {
     func appRegisteredWithError(_ error: Error?) {
         print("app registered with error")
     }
@@ -599,36 +601,10 @@ class ViewController: DJIBaseViewController, DJISDKManagerDelegate, SKTransactio
     func executeMission(){
         print("Mission executed !")
     }
-    
-    override func fetchAircraft() -> DJIAircraft?{
-        return ConnectedProductManager.sharedInstance.fetchAircraft()
+    func convertMetersToPoint(m: Double) -> Double{
+        return m*100
     }
-    
-    override func fetchCamera() -> DJICamera? {
-        return ConnectedProductManager.sharedInstance.fetchCamera()
-    }
-    
-    override func fetchGimbal() -> DJIGimbal? {
-        return ConnectedProductManager.sharedInstance.fetchGimbal()
-    }
-    
-    override func fetchFlightController() -> DJIFlightController? {
-        return ConnectedProductManager.sharedInstance.fetchFlightController()
-    }
-    
-    override func fetchRemoteController() -> DJIRemoteController? {
-        return ConnectedProductManager.sharedInstance.fetchRemoteController()
-    }
-    
-    override func fetchBattery() -> DJIBattery? {
-        return ConnectedProductManager.sharedInstance.fetchBattery()
-    }
-    override func fetchAirLink() -> DJIAirLink? {
-        return ConnectedProductManager.sharedInstance.fetchAirLink()
-    }
-    override func fetchHandheldController() -> DJIHandheldController?{
-        return ConnectedProductManager.sharedInstance.fetchHandheldController()
-    }
+ 
     
     
     //************ working drone methods *****************//
@@ -693,45 +669,6 @@ class ViewController: DJIBaseViewController, DJISDKManagerDelegate, SKTransactio
         }
     }
     
-    func productConnected() {
-        guard let newProduct = DJISDKManager.product() else {
-            NSLog("Product is connected but DJISDKManager.product is nil -> something is wrong")
-            return;
-        }
-        
-        //Updates the product's model
-        self.productModel.text = "Model: \((newProduct.model)!)"
-        self.productModel.isHidden = false
-        
-        //Updates the product's firmware version - COMING SOON
-        newProduct.getFirmwarePackageVersion{ (version:String?, error:Error?) -> Void in
-            
-            self.productFirmwarePackageVersion.text = "Firmware Package Version: \(version ?? "Unknown")"
-            
-            if let _ = error {
-                self.productFirmwarePackageVersion.isHidden = true
-            }else{
-                self.productFirmwarePackageVersion.isHidden = false
-            }
-            
-            NSLog("Firmware package version is: \(version ?? "Unknown")")
-        }
-        
-        //Updates the product's connection status
-        self.productConnectionStatus.text = "Status: Product Connected"
-        
-        self.openComponents.isEnabled = true;
-        self.openComponents.alpha = 1.0;
-        NSLog("Product Connected")
-    }
-    
-    func productDisconnected() {
-        self.productConnectionStatus.text = "Status: No Product Connected"
-        
-        self.openComponents.isEnabled = false;
-        self.openComponents.alpha = 0.8;
-        NSLog("Product Disconnected")
-    }
    
     
 }
