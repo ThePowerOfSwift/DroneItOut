@@ -14,7 +14,7 @@ import CoreLocation
 import CoreBluetooth
 
 
-
+/*
 
 let POINT_OFFSET: Double = 0.000179863
 //1 = 10m
@@ -678,6 +678,6 @@ class ViewController: DJIBaseViewController, DJISDKManagerDelegate, SKTransactio
     
 }
 
-
+*/
 
 

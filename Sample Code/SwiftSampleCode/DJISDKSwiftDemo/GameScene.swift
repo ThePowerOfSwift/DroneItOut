@@ -155,6 +155,14 @@ class GameScene: SKScene, SKTransactionDelegate {
                 direction = str
                 print("direction = " + direction)
             }
+            if str == "right" {
+                direction = str
+                print("direction = " + direction)
+            }
+            if str == "left" {
+                direction = str
+                print("direction = " + direction)
+            }
             //change background
             if str == "change" {
                 Drone.size.width += 100
@@ -180,12 +188,21 @@ class GameScene: SKScene, SKTransactionDelegate {
             
             let upSequence: SKAction = SKAction.moveBy(x: 0, y: distance * 10, duration: 1.2 )
             let downSequence: SKAction = SKAction.moveBy(x: 0, y: -(distance * 10), duration: 1.2)
+            let rightSequence: SKAction = SKAction.moveBy(x: distance * 10, y: 0, duration: 1.2)
+            let leftSequence: SKAction = SKAction.moveBy(x: -(distance * 10), y: 0, duration: 1.2)
+            
             
             if direction == "up" {
                 Drone.run(upSequence)
             }
             if direction == "down" {
                 Drone.run(downSequence)
+            }
+            if direction == "right" {
+                Drone.run(rightSequence)
+            }
+            if direction == "left" {
+                Drone.run(leftSequence)
             }
         }
         //if drone is in flight, run the wobble animation sequence

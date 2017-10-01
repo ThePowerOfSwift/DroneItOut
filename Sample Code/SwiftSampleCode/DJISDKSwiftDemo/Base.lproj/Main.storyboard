@@ -280,12 +280,12 @@
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
-                                <exclude reference="JgX-kP-hhW"/>
-                                <exclude reference="bHZ-u7-P53"/>
                                 <exclude reference="msx-SD-xuA"/>
                                 <exclude reference="pxt-sB-81W"/>
                                 <exclude reference="MSG-Dh-RFE"/>
                                 <exclude reference="MSe-OZ-oRK"/>
+                                <exclude reference="JgX-kP-hhW"/>
+                                <exclude reference="bHZ-u7-P53"/>
                                 <exclude reference="tfv-0m-Y9V"/>
                                 <exclude reference="vEk-bx-HgH"/>
                                 <exclude reference="19g-7g-QL2"/>
@@ -296,9 +296,6 @@
                         </variation>
                         <variation key="heightClass=compact">
                             <mask key="constraints">
-                                <include reference="JgX-kP-hhW"/>
-                                <include reference="bHZ-u7-P53"/>
-                                <exclude reference="e3F-Qf-PFt"/>
                                 <exclude reference="j1p-FV-ae2"/>
                                 <include reference="msx-SD-xuA"/>
                                 <include reference="pxt-sB-81W"/>
@@ -306,6 +303,9 @@
                                 <include reference="MSe-OZ-oRK"/>
                                 <exclude reference="WzN-55-Wxv"/>
                                 <exclude reference="m6l-ns-E15"/>
+                                <include reference="JgX-kP-hhW"/>
+                                <include reference="bHZ-u7-P53"/>
+                                <exclude reference="e3F-Qf-PFt"/>
                                 <exclude reference="Qvx-yB-xPX"/>
                                 <exclude reference="YBP-Cc-79l"/>
                                 <exclude reference="fyU-cx-3Wm"/>
