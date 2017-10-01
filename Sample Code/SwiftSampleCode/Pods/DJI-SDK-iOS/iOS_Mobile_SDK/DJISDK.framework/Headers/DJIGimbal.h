@@ -77,14 +77,6 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @property(nonatomic, weak) id<DJIGimbalDelegate> delegate;
 
-// TODO: REMOVE
-/**
- *  Returns the latest gimbal attitude data, or nil if none is available.
- *
- *  @deprecated Duplicated with the one in `DJIGimbalState`.
- */
-@property(nonatomic, readonly) DJIGimbalAttitude attitudeInDegrees DEPRECATED_ATTRIBUTE;
-
 
 /**
  *  Returns the gimbal's features and possible range of settings. Each dictionary
@@ -656,7 +648,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  `DJIGimbalParamPitchUpEndpoint`, `DJIGimbalParamPitchDownEndpoint`,
  *  `DJIGimbalParamYawLeftEndpoint`  and `DJIGimbalParamYawRightEndpoint` in
  *  `capabilities` to check if the gimbal supports this  feature and what the valid
- *  range of enpoints are.
+ *  range of endpoints are.
  *  
  *  @param endpoint The endpoint value to set.
  *  @param direction The direction that the setting will be applied to.

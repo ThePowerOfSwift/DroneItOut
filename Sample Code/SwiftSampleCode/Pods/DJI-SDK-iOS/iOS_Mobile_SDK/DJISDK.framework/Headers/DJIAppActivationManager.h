@@ -64,6 +64,10 @@
  */
 @interface DJIAppActivationManager : NSObject
 
+- (instancetype)init OBJC_UNAVAILABLE("You must use the singleton");
+
++ (instancetype)new OBJC_UNAVAILABLE("You must use the singleton");
+
 
 /**
  *  Delegate to receive the state update.

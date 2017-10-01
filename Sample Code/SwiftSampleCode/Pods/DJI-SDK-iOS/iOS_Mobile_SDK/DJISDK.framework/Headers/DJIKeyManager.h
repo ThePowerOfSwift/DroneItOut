@@ -41,7 +41,7 @@ typedef void (^DJIKeyedActionCompletionBlock)(BOOL finished, DJIKeyedValue * _Nu
 
 
 /**
- *  The completion block. called everytime the value behind a key is updated.
+ *  The completion block, called every time the value behind a key is updated.
  *  
  *  @param oldValue The old value. `nil` if no value was present before.
  *  @param newValue The new value. `nil` if the stored values are being flushed.
@@ -55,6 +55,10 @@ typedef void (^DJIKeyedListenerUpdateBlock)(DJIKeyedValue * _Nullable oldValue, 
  *  in `DJISDKManager`.
  */
 @interface DJIKeyManager : NSObject
+
+- (instancetype)init OBJC_UNAVAILABLE("You must use the singleton");
+
++ (instancetype)new OBJC_UNAVAILABLE("You must use the singleton");
 
 
 /**

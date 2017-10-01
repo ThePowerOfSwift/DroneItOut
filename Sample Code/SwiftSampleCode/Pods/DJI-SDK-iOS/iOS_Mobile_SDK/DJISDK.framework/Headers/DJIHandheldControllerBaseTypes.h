@@ -108,7 +108,7 @@ typedef NS_ENUM (uint8_t, DJIHandheldTriggerButton) {
  
 
     /**
-     *  Trigger button is pressed twice quicky.
+     *  Trigger button is pressed twice quickly.
      */
     DJIHandheldTriggerButtonDoubleClick,
  

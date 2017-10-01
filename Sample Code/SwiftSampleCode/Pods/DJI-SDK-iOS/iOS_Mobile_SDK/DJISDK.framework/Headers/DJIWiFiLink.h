@@ -76,7 +76,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  Gets the WiFi SSID.
  *  
- *  @param ssid The ssid string.
+ *  @param ssid The SSID string.
  *  @param error Error retrieving the value.
  *  @param completion Completion block to receive the result.
  */

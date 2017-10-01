@@ -14,13 +14,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 /**
  *  Users can unlock areas of a restricted fly zone through
- *  <http://www.dji.com/flysafe/geo-system/individual-unlock>.  A user needs to show
+ *  http://www.dji.com/flysafe/geo-system/individual-unlock.  A user needs to show
  *  special authorization (usually from a third party such as a regulatory  or
  *  managing agency) as part of the process to unlock the area within the restricted
  *  fly zone.  Therefore each request is unique and customized to the individual. If
  *  the request is successful,  the unlocked area is tied to the user's account as
  *  an Individual Unlock Zone.
- *  This class contains the properties of an Indiviual Unlock Zone.
+ *  This class contains the properties of an Individual Unlock Zone.
  */
 @interface DJIIndividualUnlockZone : NSObject
 
@@ -32,7 +32,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 /**
- *  Name of the Invidual Unlock zone.
+ *  Name of the Individual Unlock zone.
  */
 @property(nonatomic, readonly) NSString* name;
 
@@ -66,7 +66,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 /**
- *  `YES` if the Individual Unlock zone has expired. Afte a zone is expired,  the
+ *  `YES` if the Individual Unlock zone has expired. After a zone is expired,  the
  *  location will be locked.
  */
 @property(nonatomic, readonly) BOOL isExpired;

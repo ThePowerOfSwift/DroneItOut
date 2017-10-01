@@ -5,7 +5,7 @@
 //  Copyright © 2016, DJI. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import "DJISDKFoundation.h"
 #import "DJIGimbalBaseTypes.h"
 
 
@@ -51,12 +51,12 @@
  */
 @property(nonatomic, readonly) DJIGimbalMode mode;
 
-
 /**
  *  `YES` if the attitude has been reset. If the gimbal is not in the original
  *  position, this value will return `NO`.
+ *  @deprecated Not supported by firmware any more.
  */
-@property(nonatomic, readonly) BOOL isAttitudeReset;
+@property(nonatomic, readonly) BOOL isAttitudeReset DJI_API_DEPRECATED("Not supported by firmware any more. ");
 
 
 /**
@@ -129,5 +129,12 @@
  *  Returns the balance status of the gimbal.
  */
 @property(nonatomic, readonly) DJIGimbalBalanceState balanceState;
+
+
+/**
+ *  `YES` if the gimbal is mounted upwards on the aircraft. It is only supported by
+ *  M210 and M210 RTK.
+ */
+@property(nonatomic, readonly) BOOL isMountedUpwards;
 
 @end

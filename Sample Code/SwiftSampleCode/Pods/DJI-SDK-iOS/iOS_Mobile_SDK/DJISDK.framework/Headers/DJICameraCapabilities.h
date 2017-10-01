@@ -62,14 +62,14 @@ extern NSString *const DJISupportedCameraSSDVideoResolutionRange;
 
 
 /**
- *  Number of photos using brust capture mode return a array of
+ *  Number of photos using burst capture mode return a array of
  *  `DJICameraPhotoBurstCount`.
  */
 extern NSString *const DJISupportedCameraBurstCaptureCountRange;
 
 
 /**
- *  Number of photos using RAWBrust capture mode return a array of
+ *  Number of photos using RAWBurst capture mode return a array of
  *  `DJICameraPhotoBurstCount`.
  */
 extern NSString *const DJISupportedCameraRAWBurstCaptureCountRange;

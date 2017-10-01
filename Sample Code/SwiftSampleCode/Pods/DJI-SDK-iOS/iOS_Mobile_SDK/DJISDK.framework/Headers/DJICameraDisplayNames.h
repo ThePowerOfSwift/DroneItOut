@@ -114,5 +114,4 @@ extern NSString *const DJICameraDisplayNamePhantom4AdvancedCamera;
  */
 extern NSString *const DJICameraDisplayNameSparkCamera;
 
-
 #endif /* DJICameraDisplayNames_h */

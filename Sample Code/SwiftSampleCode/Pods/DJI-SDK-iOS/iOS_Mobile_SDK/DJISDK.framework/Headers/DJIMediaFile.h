@@ -232,7 +232,7 @@ typedef NS_ENUM(uint8_t, DJIMediaVideoPlaybackStatus) {
 
 /**
  *  Custom information can be stored in media file's XMP meta data using
- *  `setMediaFileCustomInformation:withCompletion` . This property contains the
+ *  `setMediaFileCustomInformation:withCompletion` This property contains the
  *  information that was written to this media file. If this property returns `nil`,
  *  use `fetchCustomInformationWithCompletion` to populate it. Only supported  by
  *  Phantom 4 Pro, Phantom 4 Advanced and Inspire 2 with firmware versions from

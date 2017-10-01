@@ -77,7 +77,7 @@ typedef NS_ENUM(NSUInteger, DJIFetchMediaTaskSchedulerState) {
  *  
  *  @param file The media file that the content belongs to.
  *  @param content An enum value of `DJIFetchMediaTaskContent`.
- *  @param error Occured error if there is any.
+ *  @param error Occurred error if there is any.
  */
 typedef void(^DJIFetchMediaTaskCompletionBlock)(DJIMediaFile *file, DJIFetchMediaTaskContent content, NSError *_Nullable error);
 
@@ -121,8 +121,8 @@ typedef void(^DJIFetchMediaTaskCompletionBlock)(DJIMediaFile *file, DJIFetchMedi
  *  The camera stores the media it captures to SD or SSD storage on the product.
  *  When the  mobile device wants to access the media, it needs to download it from
  *  the product over  the wireless link between the product, remote controller and
- *  mobile device (dending  on the product). Each media file captured by the camera
- *  can have several types of  content associated with it including the full
+ *  mobile device (depending  on the product). Each media file captured by the
+ *  camera can have several types of  content associated with it including the full
  *  resolution media content, a lower  resolution preview, a lower resolution again
  *  thumbnail, and custom data within  the file's XML meta data. The full resolution
  *  content can take a long time to  download over the wireless link, so it is often
@@ -183,7 +183,7 @@ typedef void(^DJIFetchMediaTaskCompletionBlock)(DJIMediaFile *file, DJIFetchMedi
 
 /**
  *  Remove content from tasks, and tasks from the scheduler. If all content is
- *  removed from a task, then the task is removed from the sceduler.
+ *  removed from a task, then the task is removed from the scheduler.
  *  
  *  @param file An object of `DJIMediaFile`.
  *  @param content An enum value of `DJIFetchMediaTaskContent`.

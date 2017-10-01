@@ -175,7 +175,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 /**
- *  Delegate that recevies the information sent by the camera.
+ *  Delegate that receives the information sent by the camera.
  */
 @property(nonatomic, weak) id<DJICameraDelegate> delegate;
 
@@ -204,7 +204,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 /**
- *  Camera capabilites.
+ *  Camera capabilities.
  */
 @property(nonatomic, readonly) DJICameraCapabilities *capabilities;
 
@@ -378,7 +378,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  Sets the camera's video resolution and frame rate. @warning The supported
  *  resolutions and frame rates for the  two different analog television standards
- *  PAL and NSTC are below:
+ *  PAL and NTSC are below:
  *    <b>NTSC:</b>
  *   Resolution_4096x2160, FrameRate_24fps
  *   Resolution_3840x2160, FrameRate_30fps
@@ -1058,6 +1058,31 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (void)getDefogEnabledWithCompletion:(void (^_Nonnull)(BOOL enabled, NSError *_Nullable error))completion;
 
+
+/**
+ *  Enables/disables the IR filter (infared filter). Disabling the IR filter can
+ *  enhance the image in low light  environments. Enabling the IR filter can reduce
+ *  the color distortion caused by the infared light. It is only  supported by Z30
+ *  camera.
+ *  
+ *  @param enabled `YES` to enable IR-Cut filter.
+ *  @param completion Completion block that receives the setter result.
+ */
+- (void)setIRFilterEnabled:(BOOL)enabled withCompletion:(DJICompletionBlock)completion;
+
+
+/**
+ *  Gets if IR filter (infared filter) is enabled. Disabling the IR filter can
+ *  enhance the image in low light  environments. Enabling the IR filter can reduce
+ *  the color distortion caused by the infared light. It is  only supported by Z30
+ *  camera.
+ *  
+ *  @param enabled `YES` if IR-Cut filter is enabled.
+ *  @param error Error retrieving the value.
+ *  @param completion Completion block to receive the result.
+ */
+- (void)getIRFilterEnabledWithCompletion:(void (^_Nonnull)(BOOL enabled, NSError *_Nullable error))completion;
+
 /*********************************************************************************/
 #pragma mark Digital Zoom
 /*********************************************************************************/
@@ -1592,22 +1617,22 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 /**
- *  Enables vision stablization for Z30 camera on M200 series. The vision system in
+ *  Enables vision stabilization for Z30 camera on M200 series. The vision system in
  *  the M200  series of aircraft can be used to compensate for any drift in the
  *  gimbal by analyzing the  live view when there is no gimbal movement. Drift in
- *  the gimbal will be most noticable at  higher zoom factors. Only supported by Z30
- *  on M200 series.
+ *  the gimbal will be most noticeable at  higher zoom factors. Only supported by
+ *  Z30 on M200 series.
  *  
- *  @param enabled `YES` to enable the vision stablization.
+ *  @param enabled `YES` to enable the vision stabilization.
  *  @param completion `completion block` to receive the result.
  */
 - (void)setVisionStablizationEnabled:(BOOL)enabled withCompletion:(DJICompletionBlock)completion;
 
 
 /**
- *  Gets if vision stablization is enabled. Only supported by Z30 on M200 series.
+ *  Gets if vision stabilization is enabled. Only supported by Z30 on M200 series.
  *  
- *  @param enabled `YES` if the vision stablization is enabled.
+ *  @param enabled `YES` if the vision stabilization is enabled.
  *  @param error Error if there is any.
  *  @param completion Completion block to receive the result.
  */

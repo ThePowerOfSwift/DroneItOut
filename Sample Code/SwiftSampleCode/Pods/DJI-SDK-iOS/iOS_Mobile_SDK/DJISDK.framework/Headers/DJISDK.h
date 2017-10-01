@@ -153,6 +153,9 @@ FOUNDATION_EXPORT const unsigned char DJISDKVersionString[];
 #pragma mark Mission Triggers
 //-----------------------------------------------------------------
 #import <DJISDK/DJIMissionTrigger.h>
+#import <DJISDK/DJIAircraftLandedMissionTrigger.h>
+#import <DJISDK/DJIBatteryLevelMissionTrigger.h>
+#import <DJISDK/DJIWaypointReachedMissionTrigger.h>
 
 //-----------------------------------------------------------------
 #pragma mark Mission Actions
@@ -166,6 +169,7 @@ FOUNDATION_EXPORT const unsigned char DJISDKVersionString[];
 #import <DJISDK/DJIShootPhotoAction.h>
 #import <DJISDK/DJITakeOffAction.h>
 #import <DJISDK/DJIHotpointAction.h>
+#import <DJISDK/DJILandAction.h>
 
 //-----------------------------------------------------------------
 #pragma mark Waypoint

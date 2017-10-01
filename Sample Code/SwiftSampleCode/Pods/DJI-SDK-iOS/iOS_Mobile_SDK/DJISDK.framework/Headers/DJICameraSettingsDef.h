@@ -1411,7 +1411,16 @@ typedef NS_ENUM (NSUInteger, DJICameraISO){
      *  The ISO value is set to 25600.
      */
     DJICameraISO25600 = 0x09,
+    
 
+    /**
+     *  ISO value is fixed by the camera firmware. When the digital filter is set  to
+     *  `DJICameraDigitalFilterDLog`, camera will fix the ISO to a  specific value in
+     *  order to optimize the performance. The value set by camera  can be accessed from
+     *  `ISO`.
+     */
+    DJICameraISOFixed = 0xFF,
+    
 
     /**
      *  The ISO value is set to Unknown value.
@@ -1472,7 +1481,7 @@ typedef NS_ENUM (NSUInteger, DJICameraAperture) {
      */
     DJICameraApertureF2Dot5,
     
-    //Doc key: DJICamera_DJICameraAperture_F2p6
+
     /**
      *  The Aperture value is f/2.6.
      */
@@ -1971,6 +1980,12 @@ typedef NS_ENUM (NSUInteger, DJICameraExposureCompensation){
      */
     DJICameraExposureCompensationP50,
 
+
+    /**
+     *  The camera's exposure compensation is fixed by the camera.
+     */
+    DJICameraExposureCompensationFixed = 0xFF,
+    
 
     /**
      *  The camera's exposure compensation is unknown.
@@ -2516,7 +2531,7 @@ typedef NS_ENUM(NSUInteger, DJICameraThermalScene) {
  
 
     /**
-     *  Lienarly transforms the 14-bit sensor pixel data to 8-bit JPEG/MP4 pixel data.
+     *  Linearly transforms the 14-bit sensor pixel data to 8-bit JPEG/MP4 pixel data.
      */
     DJICameraThermalSceneLinear,
  
@@ -3557,8 +3572,8 @@ typedef NS_ENUM (NSUInteger, DJICameraSSDVideoDigitalFilter){
 
 
 /**
- *  Download file types. This typedef is supported by Phantom 3 Profressional
- *  camera, X3, X5 and X5R cameras on aircraft  and Phantom 4 camera.
+ *  Download file types. This typedef is supported by Phantom 3 Professional camera,
+ *  X3, X5 and X5R cameras on aircraft  and Phantom 4 camera.
  */
 typedef NS_ENUM (NSUInteger, DJIDownloadFileType){
  
@@ -3665,7 +3680,7 @@ typedef NS_ENUM(NSUInteger, DJIVideoFileCompressionStandard){
 
 
 /**
- *  Camera preset tpye, a combine of Saturation, Contrast, Sharpness.
+ *  Camera preset type, a combine of Saturation, Contrast, Sharpness.
  */
 typedef NS_ENUM(NSUInteger, DJICameraPictureStylePresetType) {
     

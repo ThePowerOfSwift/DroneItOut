@@ -597,6 +597,44 @@ typedef NS_ENUM(uint8_t, DJIFlightControllerRemoteControllerFlightMode) {
 #pragma mark DJIFlightControllerGoHomeAssessment
 /*********************************************************************************/
 
+/**
+ *  State of Smart Return-To-Home (RTH). It is only used when Smart RTH is enabled.
+ */
+typedef NS_ENUM(uint8_t, DJIFlightControllerSmartRTHState) {
+
+    /**
+     *  Smart RTH is not triggered yet in the current flight. The Smart RTH state will
+     *  be reset  to this value when the aircraft lands.
+     */
+    DJIFlightControllerSmartRTHStateIdle = 0,
+
+    /**
+     *  Smart RTH is triggered and the aircraft is counting down. If no response is
+     *  received within 10 seconds  or the user confirms the request, the aircraft will
+     *  start to go-home and the state will change to
+     *  `DJIFlightControllerSmartRTHStateExecuted`. If user  cancels the request, the
+     *  state will change to `DJIFlightControllerSmartRTHStateCancelled`.
+     */
+    DJIFlightControllerSmartRTHStateCountingDown,
+
+    /**
+     *  Smart RTH is already executed in the current flight. The state will not be reset
+     *  until the aircraft lands.
+     */
+    DJIFlightControllerSmartRTHStateExecuted,
+
+    /**
+     *  Smart RTH request is cancelled by the user. The state will not be reset until
+     *  the aircraft lands.
+     */
+    DJIFlightControllerSmartRTHStateCancelled,
+
+    /**
+     *  Unknown.
+     */
+    DJIFlightControllerSmartRTHStateUnknown = 0xFF,
+};
+
 
 /**
  *  The Flight Controller Smart Go Home Status
@@ -644,7 +682,7 @@ typedef struct
     /**
      *  The maximum radius, in meters, an aircraft can fly from its home location and
      *  still make it all the way back home, based on altitude, distance, battery, etc.
-     *  If the aircraft goes out farther than the max radius, it will fly as far back
+     *  If the  aircraft goes out farther than the max radius, it will fly as far back
      *  home as it can and land. If the aircraft is using the simulator, this value will
      *  be 0.
      */
@@ -652,19 +690,18 @@ typedef struct
 
 
     /**
-     *  Returns whether the aircraft is requesting to go home. If the value  of
-     *  `isAircraftRequestingToGoHome`  is `YES` and the user does not respond after 10
-     *  seconds, the  aircraft will automatically go back to its home location. This can
-     *  be cancelled at any time with the `cancelGoHomeWithCompletion`  method (which
-     *  will also clear  `isAircraftRequestingToGoHome`).  It is recommended that an
-     *  alert view is shown to the user when  `isAircraftRequestingToGoHome`  returns
-     *  `YES`. During this time, the Remote Controller will beep.  The flight controller
-     *  calculates whether the aircraft should go home  based on the aircraft's
-     *  altitude, distance, battery, etc. The two  main situations in which
-     *  `isAircraftRequestingToGoHome`  will return `YES` are if the aircraft's battery
-     *  is too low or if  the aircraft has flown too far away.
+     *  The Smart Return-To-Home (RTH) state for the current flight.
      */
-    BOOL isAircraftRequestingToGoHome;
+    DJIFlightControllerSmartRTHState smartRTHState;
+
+
+    /**
+     *  The countdown (in seconds) for the Smart Return-To-Home (RTH). Once the
+     *  countdown reaches 0, the aircraft will  execute an automatic go-home procedure.
+     *  It is only valid when  `smartRTHState`  is
+     *  `DJIFlightControllerSmartRTHStateCountingDown`.
+     */
+    NSInteger smartRTHCountdown;
 } DJIFlightControllerGoHomeAssessment;
 
 /*********************************************************************************/

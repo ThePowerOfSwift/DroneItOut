@@ -110,6 +110,10 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @interface DJISDKManager : NSObject
 
+- (instancetype)init OBJC_UNAVAILABLE("You must use the singleton");
+
++ (instancetype)new OBJC_UNAVAILABLE("You must use the singleton");
+
 
 /**
  *  Used to manage the DJI account of users. Login is required by
@@ -241,7 +245,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 /**
- *  Enter debug mode with debug IP.
+ *  Enter debug mode with debug IP. Please download and use the latest DJI SDK
+ *  Bridge app from App Store: https://itunes.apple.com/us/app/sdk-
+ *  bridge/id1263583917?ls=1&mt=8
  *  
  *  @param bridgeAppIP Debug IP of the DJI Bridge App.
  */

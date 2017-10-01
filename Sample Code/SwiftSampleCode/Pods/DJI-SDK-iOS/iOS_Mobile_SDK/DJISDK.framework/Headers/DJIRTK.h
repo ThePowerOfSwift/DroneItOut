@@ -191,7 +191,7 @@ typedef NS_ENUM (NSInteger, DJIRTKPositioningSolution){
 
 
 /**
- *  Heading relative to True Noth as defined by the vector formed from Antenna 2 to
+ *  Heading relative to True North as defined by the vector formed from Antenna 2 to
  *  Antenna 1 on the mobile station.  Unit is degrees.
  */
 @property(nonatomic, readonly) float heading;

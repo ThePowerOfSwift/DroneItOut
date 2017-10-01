@@ -23,6 +23,22 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 /**
+ *  Returns the component index. Index is zero based. A component will have an index
+ *  greater than zero when there  are multiple components of the same type on the
+ *  DJI product, and one of the components already has the index 0.  For instance,
+ *  M210 can have two gimbal mounted cameras, and will therefore have two gimbal
+ *  components with indeces  0 and 1, and two camera components with indeces 0 and
+ *  1. For Matrice 600, there are printed numbers on the battery  boxes. The
+ *  `DJIBattery` component instance with index 0 corresponds to battery compartment
+ *  number 1. For Inspire 2  and M200 series, `DJIBattery` with index 0 corresponds
+ *  to the battery on the port (left hand) side of the aircraft.  For M210 and M210
+ *  RTK, `DJICamera` and `DJIGimbal` with index 0 corresponds to the camera and
+ *  gimbal on the port  (left hand) side of the aircraft.
+ */
+@property (nonatomic, assign, readonly) NSUInteger index;
+
+
+/**
  *  `YES` if the component is connected.
  */
 @property (assign, nonatomic, readonly, getter = isConnected) BOOL connected;

@@ -132,6 +132,17 @@ typedef void (^_Nullable DJICompletionBlock)(NSError *_Nullable error);
 
 
 /**
+ *  Utility method to compare a version to the other.
+ *  
+ *  @param versionToTest Version string to compare.
+ *  @param otherVersion Version string to compare.
+ *  
+ *  @return A boolean value.
+ */
+- (BOOL)isFirmwareVersion:(NSString *)versionToTest newerThanVersion:(NSString *)otherVersion;
+
+
+/**
  *  Retrieves the model of the product. See `DJIAircraft` and  `DJIHandheld` for the
  *  possible strings that can be returned.
  */

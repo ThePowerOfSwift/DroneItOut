@@ -21,7 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 /**
- *  The direction vector the aircraft is travelling in using the N-E-D  (North-East-
+ *  The direction vector the aircraft is traveling in using the N-E-D  (North-East-
  *  Down) coordinate system.
  */
 @property(nonatomic, readonly) DJISDKVector3D *direction;

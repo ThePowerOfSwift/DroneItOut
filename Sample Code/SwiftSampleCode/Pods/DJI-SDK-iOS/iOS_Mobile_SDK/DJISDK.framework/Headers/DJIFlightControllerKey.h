@@ -88,8 +88,13 @@ EXTERN_KEY NSString *const DJIFlightControllerParamConnectionFailSafeBehavior;
 EXTERN_KEY NSString *const DJIFlightControllerParamIsOnboardSDKAvailable;
 EXTERN_KEY NSString *const DJIFlightControllerParamSendDataToOnboardSDKDevice;
 
-EXTERN_KEY NSString *const DJIFlightControllerParamGoHomeBatteryThreshold;
-EXTERN_KEY NSString *const DJIFlightControllerParamLandImmediatelyBatteryThreshold;
+EXTERN_KEY NSString *const DJIFlightControllerParamLowBatteryWarningThreshold;
+EXTERN_KEY NSString *const DJIFlightControllerParamSeriousLowBatteryWarningThreshold;
+EXTERN_KEY NSString *const DJIFlightControllerParamIsLowerThanBatteryWarningThreshold;
+EXTERN_KEY NSString *const DJIFlightControllerParamIsLowerThanSeriousBatteryWarningThreshold;
+
+EXTERN_KEY NSString *const DJIFlightControllerParamSmartReturnToHomeEnabled;
+EXTERN_KEY NSString *const DJIFlightControllerParamConfirmSmartReturnToHomeRequest; 
 
 EXTERN_KEY NSString *const DJIFlightControllerParamStartIMUCalibration;
 EXTERN_KEY NSString *const DJIFlightControllerParamStartIMUCalibrationWithID;
@@ -122,6 +127,9 @@ EXTERN_KEY NSString *const DJIFlightControllerParamLandingGearExitTransportMode;
 EXTERN_KEY NSString *const DJIFlightControllerParamLandingGearRetractLandingGear;
 EXTERN_KEY NSString *const DJIFlightControllerParamLandingGearDeployLandingGear;
 
+EXTERN_KEY NSString *const DJIFlightControllerParamMultipleFlightModeEnabled;
+EXTERN_KEY NSString *const DJIFlightControllerParamNoviceModeEnabled;
+
 //Flight Assistant
 EXTERN_KEY NSString *const DJIFlightAssistantParamCollisionAvoidanceEnabled;
 EXTERN_KEY NSString *const DJIFlightAssistantParamPrecisionLandingEnabled;
@@ -131,6 +139,8 @@ EXTERN_KEY NSString *const DJIFlightAssistantParamUpwardsAvoidanceEnabled;
 
 EXTERN_KEY NSString *const DJIFlightAssistantParamIsBraking;
 
+EXTERN_KEY NSString *const DJIFlightAssistantParamAdvancedGestureControlEnabled; 
+
 //Compass
 EXTERN_KEY NSString *const DJIFlightControllerParamCompassHeading;
 EXTERN_KEY NSString *const DJIFlightControllerParamCompassIsCalibrating;
@@ -138,7 +148,6 @@ EXTERN_KEY NSString *const DJIFlightControllerParamCompassHasError;
 EXTERN_KEY NSString *const DJIFlightControllerParamCompassCalibrationState;
 EXTERN_KEY NSString *const DJIFlightControllerParamCompassStartCalibration;
 EXTERN_KEY NSString *const DJIFlightControllerParamCompassStopCalibration;
-EXTERN_KEY NSString *const DJIFlightControllerParamCompassTopologyVerifyStatus;
 
 //IMU
 EXTERN_KEY NSString *const DJIFlightControllerParamIMUState;
@@ -161,6 +170,15 @@ EXTERN_KEY NSString *const DJIFlightControllerParamRTKSupported;
 EXTERN_KEY NSString *const DJIFlightControllerParamRTKEnabled;
 EXTERN_KEY NSString *const DJIFlightControllerParamRTKStatus;
 EXTERN_KEY NSString *const DJIFlightControllerParamRTKError;
+EXTERN_KEY NSString *const DJIFlightControllerParamRTKMainGPSCount;
+EXTERN_KEY NSString *const DJIFlightControllerParamRTKMainBeidouCount;
+EXTERN_KEY NSString *const DJIFlightControllerParamRTKMainGlonassCount;
+EXTERN_KEY NSString *const DJIFlightControllerParamRTKSatelliteGPSCount;
+EXTERN_KEY NSString *const DJIFlightControllerParamRTKSatelliteBeidouCount;
+EXTERN_KEY NSString *const DJIFlightControllerParamRTKSatelliteGlonassCount;
+EXTERN_KEY NSString *const DJIFlightControllerParamRTKGroundGPSCount;
+EXTERN_KEY NSString *const DJIFlightControllerParamRTKGroundBeidouCount;
+EXTERN_KEY NSString *const DJIFlightControllerParamRTKGroundGlonassCount;
 EXTERN_KEY NSString *const DJIFlightControllerParamRTKMobileStationLatitude;
 EXTERN_KEY NSString *const DJIFlightControllerParamRTKMobileStationLongitude;
 EXTERN_KEY NSString *const DJIFlightControllerParamRTKMobileStationAltitude;

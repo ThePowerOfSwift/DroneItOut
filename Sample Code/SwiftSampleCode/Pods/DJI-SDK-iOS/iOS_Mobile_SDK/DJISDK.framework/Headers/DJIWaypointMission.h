@@ -34,9 +34,8 @@ NS_ASSUME_NONNULL_BEGIN
  *  previously). If the aircraft is pulled  back along the waypoint mission all the
  *  way to the first waypoint, then it will hover in place until the  stick is
  *  released enough for it to again progress through the mission from start to
- *  finish.
- *  It is not supported by Mavic Pro when using WiFi connection. It is not supported
- *  by Spark.
+ *  finish. It is not  supported by Mavic Pro when using WiFi connection. It is not
+ *  supported by Spark.
  */
 @interface DJIWaypointMission : DJIMission
 
@@ -260,7 +259,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 /**
- *  Determines the aircraft how to go to first waypoint frome current position.
+ *  Determines how the aircraft will reach first waypoint from current position.
  *  Default is `DJIWaypointMissionGotoWaypointSafely`.
  */
 @property(nonatomic, readwrite) DJIWaypointMissionGotoWaypointMode gotoFirstWaypointMode;

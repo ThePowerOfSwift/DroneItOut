@@ -99,7 +99,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  This class represents the remote controller of the aircraft. It provides methods
  *  to change the settings of the  physical remote controller. For some products
- *  (e.g. Inspire 1 and Matric 100), the class provides methods to  manager the
+ *  (e.g. Inspire 1 and Matrice 100), the class provides methods to  manager the
  *  slave/master mode of the remote controllers. A remote controller is a device
  *  that can have a GPS,  battery, radio, buttons, sticks, wheels, and output ports
  *  for video. The mobile device is connected to the  remote controller, which is

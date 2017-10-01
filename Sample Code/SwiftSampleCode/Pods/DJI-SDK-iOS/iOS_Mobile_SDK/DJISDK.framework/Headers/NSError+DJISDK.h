@@ -134,8 +134,8 @@ typedef NS_ENUM (NSInteger, DJISDKRegistrationError){
     /**
      *  This error occurs when an application key was given for a specific platform and
      *  is trying to be used to  activate an application for another platform. For
-     *  instance, if an application key was given for an iOS  applicationa and is used
-     *  to activate an Android application, this error will occur.
+     *  instance, if an application key was given for an iOS  application and is used to
+     *  activate an Android application, this error will occur.
      */
     DJISDKRegistrationErrorAppKeyInvalidPlatformError = -8L,
 

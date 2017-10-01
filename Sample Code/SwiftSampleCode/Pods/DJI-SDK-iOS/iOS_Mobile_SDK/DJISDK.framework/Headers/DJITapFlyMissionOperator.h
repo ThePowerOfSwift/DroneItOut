@@ -2,8 +2,7 @@
 //  DJITapFlyMissionOperator.h
 //  DJISDK
 //
-//  Created by Tim Lee on 2017/3/7.
-//  Copyright © 2017年 DJI. All rights reserved.
+//  Copyright © 2017, DJI. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -22,8 +21,8 @@ typedef NS_ENUM(NSInteger, DJITapFlyMissionState) {
 
 
     /**
-     *  The state of the operator is unknown. This is the inital state when the operator
-     *  is  first created.
+     *  The state of the operator is unknown. This is the initial state when the
+     *  operator is  first created.
      */
     DJITapFlyMissionStateUnknown = -1,
 

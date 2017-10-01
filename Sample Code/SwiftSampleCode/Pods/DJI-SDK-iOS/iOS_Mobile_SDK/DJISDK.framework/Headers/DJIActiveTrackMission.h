@@ -155,7 +155,7 @@ typedef NS_ENUM(NSUInteger, DJIActiveTrackQuickShotMode) {
 	DJIActiveTrackQuickShotModeCircle,
 
 	/**
-	 *  Aircraft will fly backward and upward with camera locked on the objec it is
+	 *  Aircraft will fly backward and upward with camera locked on the object it is
 	 *  tracking.
 	 */
 	DJIActiveTrackQuickShotModeDronie,

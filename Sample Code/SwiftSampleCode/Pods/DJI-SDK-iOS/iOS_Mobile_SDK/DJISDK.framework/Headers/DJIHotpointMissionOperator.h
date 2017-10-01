@@ -70,7 +70,7 @@ typedef NS_ENUM(NSInteger, DJIHotpointMissionState) {
 
 
 /**
- *  This class encapsulates all the state changs of the Hotpoint mission operator.
+ *  This class encapsulates all the state changes of the Hotpoint mission operator.
  */
 @interface DJIHotpointMissionEvent : NSObject
 

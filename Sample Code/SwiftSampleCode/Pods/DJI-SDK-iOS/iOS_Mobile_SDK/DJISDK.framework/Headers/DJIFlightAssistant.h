@@ -200,11 +200,11 @@ NS_ASSUME_NONNULL_BEGIN
  *  can be initiated by the user. In summary:
  *   - Aircraft starts idle on users hand
  *   - User double clicks the power button and  FaceAware becomes active
- *   - Once a face is regonized, PalmLaunch will happen
+ *   - Once a face is recogized, PalmLaunch will happen
  *   -  When flying, the user can control the aircraft position by moving their palm
  *   - If the  user waves one hand, the aircraft will fly up and backwards and start
  *  following the user.
- *   - If the user waves both hands, the aircraft will execute Bekon and return to
+ *   - If the user waves both hands, the aircraft will execute Beckon and return to
  *  the user.
  *   It is only supported by Spark.
  *  

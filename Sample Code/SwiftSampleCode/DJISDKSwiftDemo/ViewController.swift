@@ -73,6 +73,7 @@ class ViewController: DJIBaseViewController, DJISDKManagerDelegate, SKTransactio
     
     //store coordinate that uses to create waypoint mission
     var waypointList: [DJIWaypoint] = []
+    
     var waypointMission: DJIWaypointMission = DJIWaypointMission()
     
     var customMission: DJICustomMission? = nil
@@ -193,12 +194,12 @@ class ViewController: DJIBaseViewController, DJISDKManagerDelegate, SKTransactio
         state = .sksProcessing
         print("finished recording")
     }
-    func transaction(transaction: SKTransaction!, didFinishWithSuggestion suggestion: String!) {
+    func transaction(_ transaction: SKTransaction!, didFinishWithSuggestion suggestion: String!) {
         state = .sksIdle
         sksTransaction = nil
         print("reset transaction")
     }
-    func transaction(transaction: SKTransaction!, didFailWithError error: NSError!, suggestion: String!) {
+    private func transaction(_ transaction: SKTransaction!, didFailWithError error: NSError!, suggestion: String!) {
         print("there is an error in processing speech transaction")
         state = .sksIdle
         sksTransaction = nil
@@ -410,6 +411,7 @@ class ViewController: DJIBaseViewController, DJISDKManagerDelegate, SKTransactio
             }
         }
     }
+
     func enterVirtualStickMode( newFlightCtrlData: DJIVirtualStickFlightControlData) {
         // x, y , z = forward, right, downward
         
@@ -421,7 +423,7 @@ class ViewController: DJIBaseViewController, DJISDKManagerDelegate, SKTransactio
         fc?.delegate = self
         if fc != nil {
             //must first enable virtual control stick mode
-            fc?.enableVirtualStickControlMode(completion: {(error: Error?) ->Void in
+            fc.enableVirtualStickControlMode(completion: {(error: Error?) ->Void in
                 if error != nil {
                     self.atext.text = "virtual stick mode is not enabled: \(error) "
                 }
@@ -559,7 +561,7 @@ class ViewController: DJIBaseViewController, DJISDKManagerDelegate, SKTransactio
                 
                 if CLLocationCoordinate2DisValid(commLoc) {
                     let commWayPoint: DJIWaypoint = DJIWaypoint(coordinate: commLoc)
-                    commLoc.altitude = ALTITUDE
+                    commWayPoint.altitude = ALTITUDE
                     self.waypointMission.add(commWayPoint)
                     
                 }
@@ -576,7 +578,7 @@ class ViewController: DJIBaseViewController, DJISDKManagerDelegate, SKTransactio
         }
     }
     func enableVirtualStickModeSaid() {
-        fc?.enableVirtualStickControlMode(completion: {(error: Error) -> Void in
+        fc?.enableVirtualStickControlMode(completion: {(error: Error?) -> Void in
             if error != nil {
                 self.atext.text = "virtual stick mode not enabled: \(error)"
             }
@@ -603,6 +605,9 @@ class ViewController: DJIBaseViewController, DJISDKManagerDelegate, SKTransactio
     }
     func convertMetersToPoint(m: Double) -> Double{
         return m*100
+    }
+    func prepareMission(missionName: DJIWaypointMission){
+        
     }
  
     

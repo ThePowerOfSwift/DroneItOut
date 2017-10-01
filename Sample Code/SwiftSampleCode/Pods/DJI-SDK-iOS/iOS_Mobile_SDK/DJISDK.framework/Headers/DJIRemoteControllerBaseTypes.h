@@ -136,7 +136,7 @@ typedef NS_ENUM (uint8_t, DJIRCAircraftStickMappingTarget) {
 
 /**
  *  A struct representing a mapping configuration which includes the particular
- *  control and wether or not it is reversed.
+ *  control and whether or not it is reversed.
  */
 typedef struct
 {
@@ -148,7 +148,7 @@ typedef struct
     
 
     /**
-     *  Wether or not the control is to be reversed.
+     *  whether or not the control is to be reversed.
      */
     BOOL isReversed;
 } DJIRCAircraftStickMapping;
@@ -224,7 +224,7 @@ typedef struct
     
 
     /**
-     *  Wether or not the control is to be reversed.
+     *  whether or not the control is to be reversed.
      */
     BOOL isReversed;
     
