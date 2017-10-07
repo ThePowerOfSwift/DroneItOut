@@ -137,7 +137,7 @@ class GameScene: SKScene, SKTransactionDelegate {
                 print("Drone: Land")
             }
             // go command
-            if str == "go" {
+            if str == "go" || str == "move" || str == "flight"{
                 goCalled = true
                 inFlight = true
             }
@@ -147,19 +147,19 @@ class GameScene: SKScene, SKTransactionDelegate {
                 print("distance = " + String(describing: distance))
             }
             //get direction from array
-            if str == "up" {
+            if str == "up" || str == "north"{
                 direction = str
                 print("direction = " + direction)
             }
-            if str == "down" {
+            if str == "down" || str == "south"{
                 direction = str
                 print("direction = " + direction)
             }
-            if str == "right" {
+            if str == "right" || str == "east"{
                 direction = str
                 print("direction = " + direction)
             }
-            if str == "left" {
+            if str == "left" || str == "west"{
                 direction = str
                 print("direction = " + direction)
             }
@@ -192,16 +192,16 @@ class GameScene: SKScene, SKTransactionDelegate {
             let leftSequence: SKAction = SKAction.moveBy(x: -(distance * 10), y: 0, duration: 1.2)
             
             
-            if direction == "up" {
+            if direction == "up" || direction == "north"{
                 Drone.run(upSequence)
             }
-            if direction == "down" {
+            if direction == "down" || direction == "south"{
                 Drone.run(downSequence)
             }
-            if direction == "right" {
+            if direction == "right" || direction == "east"{
                 Drone.run(rightSequence)
             }
-            if direction == "left" {
+            if direction == "left" || direction == "west"{
                 Drone.run(leftSequence)
             }
         }
@@ -210,8 +210,6 @@ class GameScene: SKScene, SKTransactionDelegate {
             Drone.run(wobble, withKey: "wobbleAction")
         }
     }
-    
-    
     
 }
 

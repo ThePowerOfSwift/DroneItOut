@@ -13,24 +13,7 @@ import SpriteKit
 import CoreLocation
 import CoreBluetooth
 
-
-/*
-
-let POINT_OFFSET: Double = 0.000179863
-//1 = 10m
-//1 m = 3.280399 ft
-//1 ft = 0.3048 m
-
-//Calculation 1m = GPS point - 0.000284
-let MY_POINT_OFFSET: Double = 0.0000181
-let ALTITUDE: Float = 2
-
-
-class ViewController: DJIBaseViewController, DJISDKManagerDelegate, SKTransactionDelegate, DJIFlightControllerDelegate, DJIMissionManagerDelegate {
-    func appRegisteredWithError(_ error: Error?) {
-        print("app registered with error")
-    }
-    
+class ViewController:  DJIBaseViewController, DJISDKManagerDelegate, SKTransactionDelegate, DJIFlightControllerDelegate, CLLocationManagerDelegate {
     
     enum SKSState {
         case sksIdle
@@ -46,11 +29,22 @@ class ViewController: DJIBaseViewController, DJISDKManagerDelegate, SKTransactio
     //display text on screen
     @IBOutlet weak var textDisplay: UILabel!
     
+    
+    let pointOffset: Double = 0.000179863
+    //1 = 10m
+    //1 m = 3.280399 ft
+    //1 ft = 0.3048 m
+    
+    //Calculation 1m = GPS point - 0.000284
+    let myPointOffset: Double = 0.0000181
+    let ALTITUDE: Float = 2
+    
+
     //SpeechKit variable
     var sksSession: SKSession?
     var sksTransaction: SKTransaction?
     var state = SKSState.sksIdle
-    var SKSLanguage = "end-USA"
+    var SKSLanguage = "eng-USA"
     
     //DJI variable
     var appkey = "0e40d70b9706d8bb3ae4adfd"
@@ -59,11 +53,14 @@ class ViewController: DJIBaseViewController, DJISDKManagerDelegate, SKTransactio
     //flight Controller
     var fc: DJIFlightController?
     var aircraftLocation: CLLocationCoordinate2D? = nil
+    
+    //change DJIFlightControllerCurrentState to DJIFlightControllerState
     var currentState: DJIFlightControllerState? = nil
     var aircraft: DJIAircraft? = nil
     
     //mission variable
-   // var missionManager: DJIMissionManger = DJIMissionManger.shareInstance()
+    var missionManager: DJIMissionControl?
+    
     var hotpointMission: DJIHotpointMission = DJIHotpointMission()
     var mCurrentHotPointCoordinate: CLLocationCoordinate2D = kCLLocationCoordinate2DInvalid
     var locs: [CLLocationCoordinate2D] = []
@@ -74,17 +71,18 @@ class ViewController: DJIBaseViewController, DJISDKManagerDelegate, SKTransactio
     //store coordinate that uses to create waypoint mission
     var waypointList: [DJIWaypoint] = []
     
-    var waypointMission: DJIWaypointMission = DJIWaypointMission()
+    var waypointMission: DJIWaypointMission = DJIMutableWaypointMission()
+     let mission = DJIMutableWaypointMission()
     
     var customMission: DJICustomMission? = nil
     var missionSetup: Bool = false
     var deltaProcess: CGFloat = 0
-    var allSteps: [DJIMissionStep] = []
+    //var allSteps: [DJIMissionStep] = []
     var stepIndex: Int = 0
     
     //mission status UI bar
-    @IBOutlet weak var missionStatusBar: UIProcessView!
-    
+    @IBOutlet weak var missionStatusBar: UIProgressView!
+
     //label name for debugging
     @IBOutlet weak var atext: UILabel!
     @IBOutlet weak var btext: UILabel!
@@ -94,7 +92,7 @@ class ViewController: DJIBaseViewController, DJISDKManagerDelegate, SKTransactio
     @IBOutlet weak var ftext: UILabel!
     //@IBOutlet weak var htext: UILabel!
     @IBOutlet weak var itext: UILabel!
-
+    
     
     
     override func viewDidLoad() {
@@ -106,27 +104,23 @@ class ViewController: DJIBaseViewController, DJISDKManagerDelegate, SKTransactio
         let SKSServerHost = "sslsandbox-nmdp.nuancemobility.net";
         let SKSServerPort = "443";
         
-        let SKSLanguage = "eng-USA";
-        
         let SKSServerUrl = "nmsps://\(SKSAppId)@\(SKSServerHost):\(SKSServerPort)"
         
         
         // start nuance session with my account
         sksSession = SKSession(url: URL(string: SKSServerUrl), appToken: SKSAppKey)
-        sksTransaction = nil
+        //sksTransaction = nil
         
-        //Registered the app with DJI's servers
-        DJISDKManager.registerApp(with: "0e40d70b9706d8bb3ae4adfd" as! DJISDKManagerDelegate)
+        sksTransaction = sksSession!.recognize(withType: SKTransactionSpeechTypeDictation,detection: .short, language: SKSLanguage, delegate: self)
         
-        print("========= VIEWCONTROLLER VIEWDIDLOAD ==========")
-        
+  
         //Connect to product
         DJISDKManager.startConnectionToProduct()
-        ConnectedProductManager.sharedInstance.fetchAirlink()
+        ConnectedProductManager.sharedInstance.fetchAirLink()
         
         //mission manner
-        //self.missionManager = missionManager.shareInstance()!
-       // self.missionManager!.delegate = self
+        //self.missionManager = DJIMissionControl.shareInstance()!
+        //self.missionManager!.delegate = self
         
         let aircraft: DJIAircraft? = self.fetchAircraft()
         if aircraft != nil {
@@ -141,7 +135,7 @@ class ViewController: DJIBaseViewController, DJISDKManagerDelegate, SKTransactio
         
     }
     //conform DJIApp Protocol delegate and check error
-    @objc func sdkManagerDidRegisterAppWithError(_ error: Error?){
+    @objc func appRegisteredWithError(_ error: Error?){
         guard error == nil  else {
             print("Error:\(error!.localizedDescription)")
             return
@@ -198,6 +192,7 @@ class ViewController: DJIBaseViewController, DJISDKManagerDelegate, SKTransactio
         state = .sksIdle
         sksTransaction = nil
         print("reset transaction")
+        beginApp()
     }
     private func transaction(_ transaction: SKTransaction!, didFailWithError error: NSError!, suggestion: String!) {
         print("there is an error in processing speech transaction")
@@ -228,8 +223,7 @@ class ViewController: DJIBaseViewController, DJISDKManagerDelegate, SKTransactio
         if words.localizedStandardRange(of: "one") != nil {
             words = words.replacingOccurrences(of: "one", with: "1")
         }
-        
-        
+       
         // make sure fc is flight controller
         fc = self.fetchFlightController()
         if fc != nil {
@@ -237,29 +231,29 @@ class ViewController: DJIBaseViewController, DJISDKManagerDelegate, SKTransactio
         }
         
         // use regex for NSEW compass direction
-        self.commands = findNSEWCommandFromString(str: words)
+        self.commands = findNSEWCommands(str: words)
         if !commands.isEmpty {
             runNSEWDirectionCommands()
             commands = []
-            btext.text = "first"
+            btext.text = "1"
         }
         
         // use regex for longer commands
-        commands = findMovementCommandsFromString(str: words)
+        commands = findMovementCommands(str: words)
         if !commands.isEmpty {
             itext.text = "\(commands)"
             commands = []
-            btext.text = "second"
+            btext.text = "2"
         }
         
         // use regex for short commands
-        commands = findShortMovementCommandsFromString(str: words)
+        commands = findShortMovementCommands(str: words)
         itext.text = "\(commands)"
         if !commands.isEmpty {
             itext.text = "\(commands)"
             runShortMovementCommands()
             commands = []
-            btext.text = "third"
+            btext.text = "3"
         }
         
         // if none of those regex are matched, it will go to a String
@@ -303,7 +297,7 @@ class ViewController: DJIBaseViewController, DJISDKManagerDelegate, SKTransactio
                 enableVirtualStickModeSaid()
             }
             if str == "disable" {
-                enableVirtualStickModeSaid()
+                disableVirtualStickModeSaid()
             }
             if str == "execute" {
                 executeMission()
@@ -329,23 +323,23 @@ class ViewController: DJIBaseViewController, DJISDKManagerDelegate, SKTransactio
     //*********** REGEX METHOD **************//
     
     //use only for new compass commands
-    func findNSEWCommandFromString( str: String ) -> [String] {
-        let goCommandRegex = "\\s*(go|fly|move|head|come|)\\s(east|west|north|south)\\s(to|by|for)?\\s?((?:\\d*\\.)?\\d+)?\\s(feet|foot|meters|meter|m|ft)?"
-        let matched = matches(for: goCommandRegex,in: str )
+    func findNSEWCommands( str: String ) -> [String] {
+        let commandRegex = "\\s*(go|come|move|fly|head|)\\s(north|south|east|west)\\s(to|by|for)?\\s?((?:\\d*\\.)?\\d+)?\\s(feet|foot|meters|meter|m|ft)?"
+        let matched = matches(for: commandRegex,in: str )
         print(matched)
         return matched
     }
     //use for getting direction, distance, and units of measurements
-    func findMovementCommandsFromString( str: String ) -> [String] {
-        let goCommandRegex = "\\s*(go|fly|move|head|come|)\\s(left|right|up|down|forward|back)\\s(to|by|for)?\\s?((?:\\d*\\.)?\\d+)?\\s(feet|foot|meters|meter|m|ft)?"
-        let matched = matches(for: goCommandRegex,in: str )
+    func findMovementCommands( str: String ) -> [String] {
+        let commandRegex = "\\s*(go|come|move|fly|head|)\\s(right|left|up|down|forward|back)\\s(to|by|for)?\\s?((?:\\d*\\.)?\\d+)?\\s(feet|foot|meters|meter|m|ft)?"
+        let matched = matches(for: commandRegex,in: str )
         print(matched)
         return matched
     }
     //use for getting simple commands like "go left", "go right", "fly high"
-    func findShortMovementCommandsFromString( str: String ) -> [String] {
-        let goCommandRegex = "\\s*(drone|phantom)?\\s?(go|fly|move|head|come|)\\s(left|right|up|down|forward|back|backward)?"
-        let matched = matches(for: goCommandRegex,in: str )
+    func findShortMovementCommands( str: String ) -> [String] {
+        let commandRegex = "\\s*(drone|phantom|white)?\\s?(go|fly|move|head|come|)\\s(left|right|up|down|forward|back|backward)?"
+        let matched = matches(for: commandRegex,in: str )
         print(matched)
         return matched
     }
@@ -367,9 +361,17 @@ class ViewController: DJIBaseViewController, DJISDKManagerDelegate, SKTransactio
         var direction: String = ""
         if commands.count > 0 {
             for comm in commands {
-                var commandArr = comm.characters.split(separator: " ").map(String.init)
-                ctext.text = "command = \(commandArr[0])"
-                dtext.text = "direction = \(commandArr[1])"
+                var commandArr = comm.characters.split{$0 == " "}.map(String.init)
+                //var commandArr = comm.characters.split(separator: " ").map(String.init)
+                if commandArr.count == 0 {
+                     ctext.text = " "
+                    dtext.text = " "
+                }
+                else {
+                     ctext.text = "\(commandArr[0])"
+                    dtext.text = "\(commandArr[1])"
+                }
+                
                 
                 if commands.count == 3 { //Drone goes left
                     direction = commandArr[2]
@@ -411,7 +413,7 @@ class ViewController: DJIBaseViewController, DJISDKManagerDelegate, SKTransactio
             }
         }
     }
-
+    
     func enterVirtualStickMode( newFlightCtrlData: DJIVirtualStickFlightControlData) {
         // x, y , z = forward, right, downward
         
@@ -423,9 +425,12 @@ class ViewController: DJIBaseViewController, DJISDKManagerDelegate, SKTransactio
         fc?.delegate = self
         if fc != nil {
             //must first enable virtual control stick mode
-            fc.enableVirtualStickControlMode(completion: {(error: Error?) ->Void in
+            //fc?.enableVirtualStickControlMode(completion: {(error: Error?) ->Void in
+            //replace enableVirtualStickControlMode to getVirtualStickModeEnabled
+            fc?.getVirtualStickModeEnabled(completion: {(true, error: Error?)  ->Void in
+               
                 if error != nil {
-                    self.atext.text = "virtual stick mode is not enabled: \(error) "
+                    self.atext.text = "virtual stick mode is not enabled: \(String(describing: error))"
                 }
                 else {
                     self.atext.text = "virtual stick mode enabled"
@@ -443,16 +448,15 @@ class ViewController: DJIBaseViewController, DJISDKManagerDelegate, SKTransactio
                     flightCtrlData?.yaw = newFlightCtrlData.yaw
                     flightCtrlData?.verticalThrottle = newFlightCtrlData.verticalThrottle
                     
-                    self.ctext.text = "\(self.fc?.isVirtualStickControlModeAvailable())"
+                    self.ctext.text = "\(String(describing: self.fc?.isVirtualStickControlModeAvailable()))"
                     
                     //if VirtualStickControlMode is available, the data will be sent and drone will perfom command
-                    if self.fc?.isVirtualStickControlModeAvailable()! {
+                    if (self.fc?.isVirtualStickControlModeAvailable())! {
                         self.dtext.text = "Virtual stick control is available"
                         
                         self.fc?.send(flightCtrlData!, withCompletion: {(error: Error?) -> Void in
                             if error != nil {
-                                self.atext.text = "could not send data: \(error)"
-                                
+                                self.atext.text = "could not send data: \(String(describing: error))"
                             }
                             else {
                                 self.atext.text = "Data was sent"
@@ -503,22 +507,34 @@ class ViewController: DJIBaseViewController, DJISDKManagerDelegate, SKTransactio
                     ftext.text = "units: \(commandArr[4])"
                     units = commandArr[4]
                 }
-                var distance: Double = Double(dist)!
+                let distance: Double = Double(dist)!
                 //by here, we have each command being seperated into direction, distance, units
                 // next steps are find location, distance and direction of drone
                 
                 //cancel the current mission and remove all waypoints form waypoint list
                 cancelMissionSaid()
-                self.waypointMission.removeAllWaypoints()
+                self.mission.removeAllWaypoints()
                 
-                //get drone's direction
+                //get drone's location
                 var droneLocation: CLLocationCoordinate2D = CLLocationCoordinate2DMake(0, 0)
-                if self.currentState != nil && CLLocationCoordinate2DIsValid((self.currentState?.aircraftLocation)!){
-                    droneLocation = self.currentState!.aircraftLocation
+               
+                if ((self.currentState != nil) && CLLocationCoordinate2DIsValid(aircraftLocation!)){
+              
+                    //droneLocation = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
+                    droneLocation = aircraftLocation!
+                    
+                    //my conversion CLLocationCoordinate2DIsValid to CLLocation
+                    /*
+                    var getLat: CLLocationDegrees = droneLocation.latitude
+                    var getLon: CLLocationDegrees = droneLocation.longitude
+                    var center: CLLocation =  CLLocation(latitude: getLat, longitude: getLon)
+                     */
+                    
                     //finding GPS location
                     let waypoint: DJIWaypoint = DJIWaypoint(coordinate: droneLocation)
                     waypoint.altitude = ALTITUDE
-                    self.waypointMission.add(waypoint)
+                   
+                    self.mission.add(waypoint)
                 }
                 var lat: Double = droneLocation.latitude
                 var long: Double = droneLocation.longitude
@@ -559,18 +575,20 @@ class ViewController: DJIBaseViewController, DJISDKManagerDelegate, SKTransactio
                 commLoc.latitude = lat
                 commLoc.longitude = long
                 
-                if CLLocationCoordinate2DisValid(commLoc) {
+                if CLLocationCoordinate2DIsValid(commLoc) {
                     let commWayPoint: DJIWaypoint = DJIWaypoint(coordinate: commLoc)
                     commWayPoint.altitude = ALTITUDE
-                    self.waypointMission.add(commWayPoint)
-                    
+                    self.mission.add(commWayPoint)
                 }
+                
                 // 5 mission paramenter always needed
-                self.waypointMission.maxFlightSpeed = 2
-                self.waypointMission.autoFlightSpeed = 1
-                self.waypointMission.headingMode = DJIWayPointMissionHeadingMode.auto
-                self.waypointMission.flightPathMode = DJIWayPointMissionFlightPathMode.curved
-                waypointMission.finishedAction = DJIWayPointMissionFinishedAction.noAction
+                    self.mission.maxFlightSpeed = 2
+                    self.mission.autoFlightSpeed = 1
+                    self.mission.headingMode = DJIWaypointMissionHeadingMode.auto
+                    self.mission.flightPathMode = DJIWaypointMissionFlightPathMode.curved
+                    mission.finishedAction = DJIWaypointMissionFinishedAction.noAction
+                
+               
                 
                 //prepare mission
                 prepareMission(missionName: self.waypointMission)
@@ -578,40 +596,90 @@ class ViewController: DJIBaseViewController, DJISDKManagerDelegate, SKTransactio
         }
     }
     func enableVirtualStickModeSaid() {
-        fc?.enableVirtualStickControlMode(completion: {(error: Error?) -> Void in
+        //replace enableVirtualStickControlMode to getVirtualStickModeEnabled
+        
+        fc?.getVirtualStickModeEnabled(completion: {(true, error: Error?)  ->Void in
+        
             if error != nil {
-                self.atext.text = "virtual stick mode not enabled: \(error)"
+                self.atext.text = "virtual stick mode not enabled: \(String(describing: error))"
             }
             else {
                 self.atext.text = "virtual stick mode enabled"
                 //missing some codes
+                //initalize a data object. They have pitch, roll, yaw, and throttle
+                let commandCtrlData: DJIVirtualStickFlightControlData? = DJIVirtualStickFlightControlData.init()
+                
+                self.enterVirtualStickMode( newFlightCtrlData: commandCtrlData!)
+                self.ctext.text = "\(String(describing: self.fc?.isVirtualStickControlModeAvailable()))"
                 
             }
         })
     }
     
+    
     //********** missing some functions *****************//
+    func disableVirtualStickModeSaid() {
+        //replace disableVirtualStickControlMode to getVirtualStickModeEnabled
+        fc?.getVirtualStickModeEnabled(completion: {(false, error: Error?)  ->Void in
+
+            if error != nil {
+                self.atext.text = "virtual stick mode is not disabled: \(String(describing: error))"
+            }
+            else {
+                self.atext.text = "virtual stick mode is disabled"
+                //missing some codes
+
+                var commandCtrlData: DJIVirtualStickFlightControlData? = DJIVirtualStickFlightControlData.init()
+                //Here is where data gets changed
+                commandCtrlData?.pitch = 0
+                commandCtrlData?.roll = 0
+                commandCtrlData?.yaw = 0
+                commandCtrlData?.verticalThrottle = 0
+
+                self.ctext.text = "\(String(describing: self.fc?.isVirtualStickControlModeAvailable()))"
+                
+                
+            }
+        })
+    }
+    fileprivate var started = false
+    fileprivate var paused = false
+    
     func cancelMissionSaid() {
+        //need to define DJIWaypointMissionOperator
+        //var oper: DJIWaypointMissionOperator
+ 
+        
         print("Mission Cancelled !")
+        DJISDKManager.missionControl()?.stopTimeline()
     }
     func pauseMissionSaid(){
         print("Mission paused !")
+        DJISDKManager.missionControl()?.pauseTimeline()
+       
     }
     func resumeMissionSaid(){
         print("Mission resume !")
+        DJISDKManager.missionControl()?.resumeTimeline()
     }
     func executeMission(){
         print("Mission executed !")
+        if self.paused {
+            DJISDKManager.missionControl()?.resumeTimeline()
+        } else if self.started {
+            DJISDKManager.missionControl()?.pauseTimeline()
+        } else {
+            DJISDKManager.missionControl()?.startTimeline()
+        }
     }
     func convertMetersToPoint(m: Double) -> Double{
         return m*100
     }
     func prepareMission(missionName: DJIWaypointMission){
-        
+        print("Mission prepared!")
+        executeMission()
     }
- 
-    
-    
+  
     //************ working drone methods *****************//
     func droneStartPropellers(_ fc: DJIFlightController!) {
         if fc != nil {
@@ -630,12 +698,16 @@ class ViewController: DJIBaseViewController, DJISDKManagerDelegate, SKTransactio
     }
     func droneTakeOff(_ fc: DJIFlightController!) {
         if fc != nil {
-            fc!.takeoff(completion: {[weak self](error: Error?) -> Void in
+            
+            
+            //fc!.takeoff(completion: {[weak self](error: Error?) -> Void in
+            //replace takoff to startTakeoff
+            fc.startTakeoff(completion: {[weak self](error: Error?) -> Void in
                 if error != nil {
-                    self?.showAlertResult("TakeOff Error: \(error!.localizedDescription)")
+                    self?.showAlertResult(info: "TakeOff Error: \(error!.localizedDescription)")
                 }
                 else {
-                    self?.showAlertResult("TakeOff Succeeded.")
+                    self?.showAlertResult(info: "TakeOff Succeeded.")
                 }
             })
         }
@@ -645,12 +717,13 @@ class ViewController: DJIBaseViewController, DJISDKManagerDelegate, SKTransactio
     }
     func droneLand(_ fc: DJIFlightController!) {
         if fc != nil {
-            fc!.autoLanding(completion: {[weak self](error: Error?) -> Void in
+            //changed autoLanding() to startLanding()
+            fc!.startLanding(completion: {[weak self](error: Error?) -> Void in
                 if error != nil {
-                    self?.showAlertResult("Auto Landing Error: \(error!.localizedDescription)")
+                    self?.showAlertResult(info: "Auto Landing Error: \(error!.localizedDescription)")
                 }
                 else {
-                    self?.showAlertResult("Auto Landing Succeeded.")
+                    self?.showAlertResult(info: "Auto Landing Succeeded.")
                 }
             })
         }
@@ -660,12 +733,12 @@ class ViewController: DJIBaseViewController, DJISDKManagerDelegate, SKTransactio
     }
     func droneStopPropellers(_ fc: DJIFlightController!) {
         if fc != nil {
-            fc!.autoLanding(completion: {[weak self](error: Error?) -> Void in
+            fc!.startLanding(completion: {[weak self](error: Error?) -> Void in
                 if error != nil {
-                    self?.showAlertResult("Turn Off Error: \(error!.localizedDescription)")
+                    self?.showAlertResult(info: "Turn Off Error: \(error!.localizedDescription)")
                 }
                 else {
-                    self?.showAlertResult("Turn Off Succeeded.")
+                    self?.showAlertResult(info: "Turn Off Succeeded.")
                 }
             })
         }
@@ -674,10 +747,8 @@ class ViewController: DJIBaseViewController, DJISDKManagerDelegate, SKTransactio
         }
     }
     
-   
-    
 }
 
-*/
+
 
 

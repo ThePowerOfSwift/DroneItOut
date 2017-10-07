@@ -1,16 +1,14 @@
 //
-//  DJICollectionController.swift
+//  DJICustomMission.swift
 //  DroneItOut
 //
-//  Created by Daniel Nguyen on 9/29/17.
+//  Created by Daniel Nguyen on 10/2/17.
 //  Copyright © 2017 DJI. All rights reserved.
 //
 
 import Foundation
-public class DJIMissionManagerDelegate {
-    
-}
-public class DJICustomMission
+
+class DJICustomMission
 {
     var Id:Int!
     init(id: Int){
